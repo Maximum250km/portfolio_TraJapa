@@ -5,6 +5,8 @@
 		<tr>
 			<th>name</th>
 			<th><%= user.account_name %></th>
+			<th><%= user.nationality %></th>
+			<div class="selected-flag" title="Afghanistan (‫افغانستان‬‎)"><div class="flag af"></div><div class="arrow"></div></div>
 		</tr>
 <th>
 		  <%= link_to follows_user_path(user.id) do%>
