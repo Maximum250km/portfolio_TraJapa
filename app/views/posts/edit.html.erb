@@ -1,0 +1,24 @@
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
+
+<h1>Editing post</h1>
+
+<%= render "posts/newform", post: @post %>
+
+
+	<% if @post_new.errors.any? %>
+	<h3><%= @post_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
+	<ul>
+		<% @post_new.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%= link_to "Show", @post, class: "post_#{@post.id}" %>
+<%= link_to "Back", posts_path, class: "back" %>
+
+</div>
+<div class="col-md-3"></div>
+
+</div>

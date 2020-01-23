@@ -4,29 +4,24 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :First_Name %><br />
-    <%= f.text_field :first_name, autofocus: true, autocomplete: "First_Name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :Last_Name %><br />
-    <%= f.text_field :last_name, autofocus: true, autocomplete: "Last_Name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :Middle_Name %><br />
-    <%= f.text_field :other_name, autofocus: true, autocomplete: "Middle_Name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :"Account_Name / Patronym" %><br />
+    <%= f.label :"Account_Name" %><br />
     <%= f.text_field :account_name, autofocus: true, autocomplete: "Account_Name" %>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :Email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
+
+  <div class="field">
+    <%= f.label :nationality %><br />
+    <input type="text" id="country">
+     <script src="/assets/countrySelect.min.js"></script>
+<script>
+  $("#country").countrySelect();
+</script>
+  </div>
+
 
   <div class="field">
     <%= f.label :password %>

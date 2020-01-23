@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TraJapa</title>
+    <title>TraJapa !!</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-    <%= yield %>
+    <!--ヘッダーの記述-->
+    
+        <header>
+            <ul>
+            <% if user_signed_in? %>
+            <li><%= link_to ' home', user_path(current_user) %></li>
+            <li><%= link_to ' users', users_path%></li>
+            <li><%= link_to ' posts', posts_path %></li>
+            <li><%= link_to ' log out', destroy_user_session_path, method: :delete %></li>
+            <% else %>
+            <li><%= link_to ' home', root_path %></li>
+            <li><%= link_to ' about', posts_about_path%></li>
+            <li><%= link_to ' sig nup', new_user_registration_path %></li>
+            <li><%= link_to ' log in', new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+      <%= yield %>
   </body>
 </html>
