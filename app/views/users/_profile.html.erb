@@ -1,0 +1,38 @@
+<div class="profile clearfix">
+	<table class="table">
+		<tr><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %></tr>
+
+		<tr>
+			<th>name</th>
+			<th><%= user.account_name %></th>
+			<th><%= user.nationality %></th>
+			<div class="selected-flag" title="Afghanistan (‫افغانستان‬‎)"><div class="flag af"></div><div class="arrow"></div></div>
+		</tr>
+<th>
+		  <%= link_to follows_user_path(user.id) do%>
+				<% user.followings.count %>
+				<p><%= user.followings.count %>フォワー</p>
+				<% end %>
+			</th>
+			<th>
+				<%= link_to followers_user_path(user.id) do%>
+				<% user.followers.count %>
+				<p><%= user.followers.count %>フォロワー</p>
+				<% end %>
+			</th>
+	
+
+        <tr>
+        <% if current_user != user %>
+        <% if user.followed_by?(current_user) %>
+            <p><%=link_to "フォロー済み", user_relationships_path(user.id), method: :delete %></p>
+        <% else %>
+            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :book %></p>
+        <% end %>
+    <% end %>
+        </tr>
+	</table>
+	<div class="">
+		<%= link_to 'edit',edit_user_path(user.id), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+	</div>
+</div>

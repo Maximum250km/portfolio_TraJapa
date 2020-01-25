@@ -1,0 +1,31 @@
+				<%= form_with model:@post_comment, url:post_post_comments_path(post.id) do |f| %>
+				<%= f.text_area :comments, rows:'5', class: "form-control" %>
+				<%= f.submit "Submit", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+				<% end %>
+
+				<td> <p>commnets</p>
+					<span><% post.post_comments.count %></span>
+					<h4 class="comment-count"><%= post.post_comments.count %>comments</h4></td>
+				</tr>
+			</table>
+			<table>
+				<thead>
+					<tr>
+					<th>User</th>
+					<th>commnet</th>
+					<th>Posted at</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tr>
+				<% post.post_comments.each do |c| %>
+				<td><%= c.user.account_name %></td>
+				<td><%= c.comments %></td>
+				<td><%= c.created_at.strftime('%Y/%m/%d') %></td>
+			</tr>
+				<% if c.user == current_user %>
+				<td><%= link_to "削除",  post_post_comment_path(c.post_id, c.id), method: :delete, remote: true %></td>
+					</tr>
+				<% end %>
+				<% end %>
+			</table>

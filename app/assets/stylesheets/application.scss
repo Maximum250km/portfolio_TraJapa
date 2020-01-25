@@ -13,3 +13,36 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.profile{
+	width: 250px;
+}
+.form{
+     width:250px;
+	 }
+body {
+	margin-top: 40px;
+}
+
+.actions {
+	margin-top:10px;
+}
+
+.notice{
+	backgroud-color:blue;
+}
+
+.comments{
+	float:left;
+}
+.comcounts{
+	font-size:18px;
+}
+

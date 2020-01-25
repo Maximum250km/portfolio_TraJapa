@@ -1,0 +1,70 @@
+<%= form_for(@post_new) do |f| %>
+<div class="form clearfix">
+
+	<% if @post_new.errors.any? %>
+	<h3><%= @post_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
+	<ul>
+		<% @post_new.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+	<% end %>
+	<tr>
+		<div class="field">
+			<%= f.label :title %>
+			<%= f.text_field :title, class: "col-xs-12 book_title" %>
+		</div>
+	</tr>
+	<tr>
+		<div class="field">
+			<%= f.label :opinion %>
+			<%= f.text_area :body, class: "col-xs-12 book_body" %>
+		</div>
+	</tr>
+	<tr>
+		<div class="field">
+			<%= f.label :topic %>
+			<%= f.select :post_genre, [["Travel"],["Tips"],["Spot"]] %>
+		</div>
+	</tr>
+	<tr>
+		<div class="field">
+			<%= f.label :image %>
+			<%= f.attachment_field :post_image, class: "post_image" %>
+		</div>
+	</tr>
+
+	<tr>
+		<div class="field form-group">
+			<%= f.label :spot %>
+			<%= f.text_field :spot, class:"form-control", id:"search_input", placeholder:"where to visit" %>
+			<input type="hidden" id="latitude_input"/>
+			<input type="hidden" id="longitude_input"/>
+</div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgcXDu9pZmm_jOHHvAgpwnyVhIw9uiqfw&libraries=places"></script>
+<script>
+	var searchInput = 'search_input';
+$(document).ready(function () {
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+        types: ['geocode'],
+        componentRestrictions: {country: "jp"}
+    });
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var near_place = autocomplete.getPlace();
+        document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+        document.getElementById('loc_long').value = near_place.geometry.location.lng();
+        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+    });
+});
+</script>
+</div>
+</tr>
+
+<tr>
+	<%= f.submit class: "btn btn-primary col-xs-12" %>
+</tr>
+</div>
+
+<% end %>
