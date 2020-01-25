@@ -11,6 +11,7 @@ class Post < ApplicationRecord
 	enum post_genre: {
 		Travel: 0,Tips: 1,Spot: 2
 	}
+
 def favorited_by?(user)
 		self.favorites.where(user_id: user.id).exists?
 	end

@@ -52,19 +52,17 @@
       geocoder.geocode({ address: address }, function(results, status){
       //ステータスが OK で results[0] が存在すれば、地図を生成
          if (status === 'OK' && results[0]){
-            new google.maps.Map(target, {
+            var map = new google.maps.Map(target, {
             //results[0].geometry.location に緯度・経度のオブジェクトが入っている
               center: results[0].geometry.location,
               zoom: 17
             });
-                    var marker = new google.maps.Marker({
+          var marker = new google.maps.Marker({
           position: results[0].geometry.location,
           map: map,
           animation: google.maps.Animation.DROP
         });
-                           marker.addListener('click', function(){
-          infoWindow.open(map, marker);
-        });
+          
          }else{
          //ステータスが OK 以外の場合や results[0] が存在しなければ、アラートを表示して処理を中断
            alert('失敗しました。理由: ' + status);
@@ -74,7 +72,6 @@
     }
     </script> 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkxS_JuEboKWjO2QnLTSI9CGy1X-KvJf8&callback=initMap" async defer></script><!-- YOUR_API_KEYの部分は取得した APIキーで置き換えます -->
-</tr>
 
 
 
