@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   #get 'relationships/create'
   #get 'relationships/destroy'
 	devise_for :users
-	resources :users,only: [:show,:index,:edit,:update] do
+	resources :users, only: [:show, :index, :edit, :update] do
     resource :relationships, only: [:create, :destroy]
     get :follows, on: :member
     get :followers, on: :member
@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 	resources :posts do
 		resource :favorites, only: [:create, :destroy]
 		resources :post_comments, only: [:create, :destroy]
+	end
+	resources :forums, only: [:index, :create, :destroy] do
 	end
 	get 'posts/new'
 	root 'posts#top'
