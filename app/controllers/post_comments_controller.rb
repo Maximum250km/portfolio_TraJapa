@@ -20,4 +20,3 @@ class PostCommentsController < ApplicationController
 		params.require(:post_comment).permit(:user_id,:comments,:post_id)
 	end
 end
-	

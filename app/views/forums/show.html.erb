@@ -1,0 +1,12 @@
+<h1>Froum show</h1>
+
+ <div class="forum-contents">
+  	<%= @forums.user.account_name %>
+  		<%= link_to (@forums.user) do %>
+						<%= attachment_image_tag(@forums.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
+						<% end %>
+    	    <%= @forums.forum_title %>
+					<%= @forums.forum_body %>
+					<%= @forums.forum_genre %>
+					<%= attachment_image_tag(@forums, :forum_image, :fill, 100, 100) %>
+				</div>

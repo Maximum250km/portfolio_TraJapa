@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :forums
   has_many :favorites
   has_many :post_comments
+  has_many :forum_replies
   attachment :profile_image, destroy: false
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id

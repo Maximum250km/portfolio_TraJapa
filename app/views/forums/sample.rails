@@ -1,0 +1,17 @@
+	<%= form_with(model:@forum_comment)url:forum_forum_comments_path(forum.id) do |forum| %>
+
+	class ForumCommentsController < ApplicationController
+	def create
+		forum_reply = Folum.find(params[:id])
+		comment = current_user
+		comment.user_id = current_user.id
+		comment.forum_id = params[:forum_id]
+		comment.save
+end
+
+private
+  def forum_comment_params
+    params.require(:forum_comment).permit(:user_id, :forum_id, :comments)
+  end
+
+end
