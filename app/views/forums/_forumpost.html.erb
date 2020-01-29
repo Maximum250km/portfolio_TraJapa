@@ -1,0 +1,20 @@
+<%= form_with model:@forum_new, url:forums_path do |forum| %>
+	  <div class="field">
+			<%= forum.label :title %>
+			<%= forum.text_field :forum_title %>
+		</div>
+		<div class="field">
+			<%= forum.label :qustion %>
+			<%= forum.text_area :forum_body%>
+		</div>
+		<div class="field">
+			<%= forum.label :Theme %>
+			<%= forum.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] %>
+		</div>
+		<div class="field">
+			<%= forum.label :image %>
+			<%= forum.attachment_field :forum_image, class: "post_image" %>
+		</div>
+		<%= forum.submit %>
+		<% end %>
+	</div>

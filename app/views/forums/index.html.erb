@@ -1,26 +1,28 @@
 <h1>forums</h1>
 
+
 <div class="forum-inouts">
-	<%= form_for(@forum_new) do |forum| %>
-	<div class="field">
-		<%= forum.label :title %>
-		<%= forum.text_field :forum_title %>
+  <%= form_with model:@forum_new do |forum| %>
+	  <div class="field">
+			<%= forum.label :title %>
+			<%= forum.text_field :forum_title %>
+		</div>
+		<div class="field">
+			<%= forum.label :qustion %>
+			<%= forum.text_area :forum_body%>
+		</div>
+		<div class="field">
+			<%= forum.label :Theme %>
+			<%= forum.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] %>
+		</div>
+		<div class="field">
+			<%= forum.label :image %>
+			<%= forum.attachment_field :forum_image, class: "post_image" %>
+		</div>
+		<%= forum.submit %>
+		<% end %>
 	</div>
-	<div class="field">
-		<%= forum.label :qustion %>
-		<%= forum.text_area :forum_body%>
-	</div>
-	<div class="field">
-		<%= forum.label :Theme %>
-		<%= forum.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] %>
-	</div>
-	<div class="field">
-		<%= forum.label :image %>
-		<%= forum.attachment_field :forum_image, class: "post_image" %>
-	</div>
-	<%= forum.submit %>
-	<% end %>
-</div>
+
 
 <div class="forum-contents">
 	<% @forums.each do |content| %>
@@ -29,7 +31,18 @@
 	  <%= content.forum_genre %>
 	  <%= attachment_image_tag(content, :forum_image, :fill, 100, 100) %>
 	  <%= link_to "Edit",edit_forum_path(content.id) %>
-	  <%= link_to "Destroy",post_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+	  <%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+	  <div class="forum-favorites">
+	  	<% if user_signed_in? %>
+	  	<% if content.favorited_by?(current_user) %>
+	  	<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :delete %>
+	  	<% else %>
+	  	<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :post %>
+	  	<% end %>
+	  	<p><span> favorites: </span><%= content.forum_favorites.count %></p>
+	  </div>
+  <% end %>
+
 	  <div class="submit">
 		   <%= form_with model:ForumReply.new,url:forum_forum_replies_path(content) do |form| %>
 		      <%= form.text_area :comments %>
@@ -42,13 +55,13 @@
 		    <%= reply.comments %>
 		    <%= reply.created_at.strftime('%Y/%m/%d') %>
 		    <% if content.user == current_user %>
-		       <%= link_to "削除",forum_forum_reply_path(content.id, reply.id),method: :delete %>
+		       <%= link_to "削除",forum_forum_reply_path(content.id, reply.id),method: :delete, remote: true  %>
 		    <% end %>
 		  <% end %>
 	  </div>
   <% end %>
 </div>
 
-	<!-- こにコメントをeach内でループさせる　　content.forum_replies  n+1問題で検索 <% #end %>の数とインデント  rubocop-->
+	<!-- こにコメントをeach内でループさせる　　content.forum_replies  n+1問題で検索 % #end %の数とインデント  rubocop-->
 
 

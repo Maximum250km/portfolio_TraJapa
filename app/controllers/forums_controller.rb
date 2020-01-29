@@ -19,18 +19,18 @@ class ForumsController < ApplicationController
 		@forum_new = Forum.new(forum_params)
 		@forum_new.user_id = current_user.id
 		if @forum_new.save
-			redirect_to forums_path, notice: "successfully posted "
+			render :index
 		else
 			@forums= Forum.all
 			@user = current_user
-			render 'forum'
+			render 'index'
 		end
 	end
 
 	def destroy
 		forum = Forum.find(params[:id])
 		forum.destroy
-		redirect_to forums_path, notice: "your post was deleted"
+		redirect_to forums_path
 	end
 
 	private

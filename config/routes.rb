@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 	end
 	resources :forums, only: [:index, :show, :edit, :create, :destroy] do
     resources :forum_replies, only: [:create, :destroy]
+    resource :forum_favorites, only:[:create, :destroy]
 	end
   root 'posts#top'
   get 'posts/about'

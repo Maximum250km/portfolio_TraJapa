@@ -7,15 +7,17 @@ class ForumRepliesController < ApplicationController
 			redirect_to forums_path
 		end
 	end
+
 	def destroy
 		@reply =  ForumReply.find(params[:id])
 		@reply.user_id = current_user.id
 		@reply.destroy
 	end
+
 	private
-	def forum_reply_params
-		params.require(:forum_reply).permit(:comments)
-	end
+		def forum_reply_params
+			params.require(:forum_reply).permit(:comments)
+		end
 
 end
 
