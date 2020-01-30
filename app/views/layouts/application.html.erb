@@ -1,35 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TraJapa !!</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>TraJapa !!</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/css/uikit.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit-icons.min.js"></script>
+</head>
 
-  </head>
-
-  <body>
-    <!--ヘッダーの記述-->
-        <header>
-            <ul>
+<body>
+  <!--ヘッダーの記述-->
+  <div class="uk-container">
+    <div class="top-background">
+      <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-dark; top: 150">
+       <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+         <div class="uk-navbar-left">
+           <ul class="uk-navbar-nav">
+             <%= link_to posts_path do%>
+             <%=image_tag 'icon.png', :size =>'130x90'%>
+             <% end %>
+           </ul>
+         </div>
+         <div class="uk-navbar-right ">
+          <ul class="uk-navbar-nav uk-text-bold uk-text-emphasis">
             <% if user_signed_in? %>
-            <li><%= link_to ' home', posts_path %></li>
-            <li><%= link_to ' users', users_path%></li>
-            <li><%= link_to ' posts', posts_path %></li>
-            <li><%= link_to ' log out', destroy_user_session_path, method: :delete %></li>
-            <% else %>
-            <li><%= link_to ' home', root_path %></li>
-            <li><%= link_to ' about', posts_about_path%></li>
-            <li><%= link_to ' Sign_up', new_user_registration_path %></li>
-            <li><%= link_to ' log in', new_user_session_path %></li>
-            <% end %>
-          </ul>
-        </nav>
-      </div>
-    </header>
+            <li class="uk-active"><%= link_to 'ABOUT', posts_about_path%></li>
+            <li class="uk-active"><%= link_to 'FORUMS', forums_path%></li>
+            <li class="uk-active"><%= link_to 'POSTS', posts_path %></li>
+            <li><a href="#">
+              <%= attachment_image_tag(current_user, :profile_image, :fill, 75, 75, fallback: "human.png" ,class: "icon") %>
+            </a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li class="uk-nav-header">Account Name</li>
+                <li><%= current_user.account_name %></li>
+                <li class="uk-active"></li>
+                <li><%= link_to "View My Profile", user_path(current_user.id) %></li>
+                <li><%= link_to 'LOG OUT', destroy_user_session_path, method: :delete %></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <% else %>
+        <li class="uk-active"><%= link_to 'HOME', root_path %></li>
+        <li class="uk-active"><%= link_to 'ABOUT', posts_about_path%></li>
+        <li class="uk-active"><%= link_to 'SIGN_UP', new_user_registration_path %></li>
+        <li class="uk-active"><%= link_to 'LOG_IN', new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</div>
+</div>
 
-      <%= yield %>
-  </body>
+<%= yield %>
+</div>
+</body>
 </html>

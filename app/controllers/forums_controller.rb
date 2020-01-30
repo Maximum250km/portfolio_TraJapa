@@ -19,7 +19,7 @@ class ForumsController < ApplicationController
 		@forum_new = Forum.new(forum_params)
 		@forum_new.user_id = current_user.id
 		if @forum_new.save
-			render :index
+			redirect_to forums_path
 		else
 			@forums= Forum.all
 			@user = current_user

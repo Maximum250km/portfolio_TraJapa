@@ -16,6 +16,11 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+.uk-container{
+}
+header{
+	font-size: 20px;
+}
 .clearfix::after {
   content: "";
   display: block;
@@ -27,9 +32,7 @@
 .form{
      width:250px;
 	 }
-body {
-	margin-top: 40px;
-}
+
 
 .actions {
 	margin-top:10px;
@@ -45,4 +48,16 @@ body {
 .comcounts{
 	font-size:18px;
 }
+.top-background{
+ background: image-url('top-background.jpg');
+ height:400px;
+ width:100%;
+ background-size: cover;
+}
+.icon{
+	border-radius:60px;
+}
 
+a:link, a:visited, a:hover, a:active {
+  color: blue;
+}

@@ -13,7 +13,7 @@
 					</thead>
 					<td>
 						<%= link_to (@post.user) do %>
-						<%= attachment_image_tag(@post.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
+						<%= attachment_image_tag(@post.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg" ,class: "icon") %><br>
 						<%= @post.user.account_name %>
 						<% end %>
 					</td>
@@ -37,7 +37,7 @@
 			</tr>
 		</tbody>
 
-
+  
 		<div id='gmap' style="height:400px;width:600px"></div> <!-- 地図を表示する領域 -->
 
 		<script>
@@ -62,16 +62,17 @@
       		map: map,
       		animation: google.maps.Animation.DROP
       	});
-      	
       }else{
          //ステータスが OK 以外の場合や results[0] が存在しなければ、アラートを表示して処理を中断
-         alert('失敗しました。理由: ' + status);
-         return;
+         //下の記述でエラーの出し方を定義している。 今回は非表示にするためコメントアウト
+         //alert('失敗しました。理由: ' + status);
+         //return;
        }
      });
     }
-  </script> 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkxS_JuEboKWjO2QnLTSI9CGy1X-KvJf8&callback=initMap" async defer></script><!-- YOUR_API_KEYの部分は取得した APIキーで置き換えます -->
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkxS_JuEboKWjO2QnLTSI9CGy1X-KvJf8&callback=initMap&language=en" async defer></script>
+   <!-- &language=enで表示言語を英語に固定  -->
 
 
 

@@ -12,6 +12,7 @@ class ForumRepliesController < ApplicationController
 		@reply =  ForumReply.find(params[:id])
 		@reply.user_id = current_user.id
 		@reply.destroy
+		 redirect_to forums_path
 	end
 
 	private

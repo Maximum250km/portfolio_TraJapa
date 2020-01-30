@@ -2,7 +2,7 @@
 
 
 <div class="forum-inouts">
-  <%= form_with model:@forum_new do |forum| %>
+  <%= form_with model:@forum_new, local: true do |forum| %>
 	  <div class="field">
 			<%= forum.label :title %>
 			<%= forum.text_field :forum_title %>
@@ -30,10 +30,14 @@
 	  <%= content.forum_body %>
 	  <%= content.forum_genre %>
 	  <%= attachment_image_tag(content, :forum_image, :fill, 100, 100) %>
+	  <% if user_signed_in? %>
 	  <%= link_to "Edit",edit_forum_path(content.id) %>
 	  <%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
-	  <div class="forum-favorites">
-	  	<% if user_signed_in? %>
+	  <% else %>
+	  <%= link_to "Writer's_Profile",user_path(content.user_id) %>
+	  <%= link_to %>
+	  <% end %>
+      <div class="forum-favorites">
 	  	<% if content.favorited_by?(current_user) %>
 	  	<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :delete %>
 	  	<% else %>
@@ -41,10 +45,8 @@
 	  	<% end %>
 	  	<p><span> favorites: </span><%= content.forum_favorites.count %></p>
 	  </div>
-  <% end %>
-
 	  <div class="submit">
-		   <%= form_with model:ForumReply.new,url:forum_forum_replies_path(content) do |form| %>
+		   <%= form_with model:ForumReply.new,url:forum_forum_replies_path(content), local: true do |form| %>
 		      <%= form.text_area :comments %>
 		      <%= form.submit %>
 		   <% end %>
@@ -55,7 +57,7 @@
 		    <%= reply.comments %>
 		    <%= reply.created_at.strftime('%Y/%m/%d') %>
 		    <% if content.user == current_user %>
-		       <%= link_to "削除",forum_forum_reply_path(content.id, reply.id),method: :delete, remote: true  %>
+		       <%= link_to "削除",forum_forum_reply_path(content.id, reply.id),method: :delete, local: true  %>
 		    <% end %>
 		  <% end %>
 	  </div>
