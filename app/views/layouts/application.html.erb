@@ -14,7 +14,6 @@
 
 <body>
   <!--ヘッダーの記述-->
-  <div class="uk-container">
     <div class="top-background">
       <div uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-dark; top: 150">
        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
@@ -26,7 +25,7 @@
            </ul>
          </div>
          <div class="uk-navbar-right ">
-          <ul class="uk-navbar-nav uk-text-bold uk-text-emphasis">
+          <ul class="uk-navbar-nav uk-text-bold uk-text-emphasis ">
             <% if user_signed_in? %>
             <li class="uk-active"><%= link_to 'ABOUT', posts_about_path%></li>
             <li class="uk-active"><%= link_to 'FORUMS', forums_path%></li>
@@ -58,6 +57,5 @@
 </div>
 
 <%= yield %>
-</div>
 </body>
 </html>

@@ -16,10 +16,15 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
-.uk-container{
+body{
+	margin: 0px 15px 0px 15px;
 }
+
 header{
 	font-size: 20px;
+}
+.contents{
+	margin: 15px 15px;
 }
 .clearfix::after {
   content: "";
@@ -53,11 +58,24 @@ header{
  height:400px;
  width:100%;
  background-size: cover;
+ background-position: center;
 }
 .icon{
 	border-radius:60px;
 }
-
+.sidebar{
+	height:200px;
+}
+.inline{
+display: inline-block;
+}
+.forum-contents{
+	margin: 20px;
+	padding: 30px;
+}
+.genre{
+	float: right;
+}
 a:link, a:visited, a:hover, a:active {
   color: blue;
 }

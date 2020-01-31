@@ -1,69 +1,90 @@
-<h1>forums</h1>
+<div class="contents">
+	<div class="uk-container uk-container-center  uk-container-small">
+		
+
+		<!-- 検索機能実装用サイドバー建設予定地 -->
+<!-- <div class="uk-width-1-5 uk-panel uk-panel-box uk-background-muted sidebar">
+				<h3 class="uk-nav-header">Pick your interest</h3>
+				<ul class="uk-list uk-list-bullet">
+					<li class="uk-active">Travel</li>
+					<li class="uk-active">Tips</li>
+					<li class="uk-active">Spots</li>
+					<li class="uk-active">Troubles</li>
+				</ul>
+			</div> -->
 
 
-<div class="forum-inouts">
-  <%= form_with model:@forum_new, local: true do |forum| %>
-	  <div class="field">
-			<%= forum.label :title %>
-			<%= forum.text_field :forum_title %>
+			<div class=" uk-fieldset">
+				<%= form_with model:@forum_new, local: true do |forum| %>
+				<div class="field">
+					<%= forum.label :title %>
+					<%= forum.text_field :forum_title, class: "uk-input" %>
+				</div>
+				<div class="field">
+					<%= forum.label :qustion %>
+					<%= forum.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
+				</div>
+				<br>
+				<div class="field">
+					<%= forum.label :image %>
+					<%= forum.attachment_field :forum_image, class: "uk-button uk-button-default" %>
+				</div>
+				<br>
+				<div class="field">
+					<%= forum.label :Theme %>
+					<%= forum.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] , class: "uk-select" %>
+				</div>
+				<br>
+				<%= forum.submit class: "uk-button uk-button-secondary uk-button-large" %>
+				<% end %>
+			</div>
 		</div>
-		<div class="field">
-			<%= forum.label :qustion %>
-			<%= forum.text_area :forum_body%>
+
+
+		<div class="uk-container-center uk-container forum-contents">
+			<% @forums.each do |content| %>
+			<div class="uk-card uk-card-large uk-card-default uk-card-hover forum-contents">
+				<p class="uk-badge genre">Topic : <%= content.forum_genre %></p>
+				<h3 class="uk-text-normal">Title : <%= content.forum_title %></h3>
+				<h4 class="uk-text-normal"> Question : <%= content.forum_body %></h4>
+				<h5 class="uk-text-normal uk-text-italic">Topic : <%= content.forum_genre %></h5>
+				<%= attachment_image_tag(content, :forum_image, :fill, 100, 100) %>
+				<% if content.user_id == current_user.id %>
+				<%= link_to "Edit",edit_forum_path(content.id) %>
+				<%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+				<% else %>
+				<%= link_to "Writer's Profile",user_path(content.user_id) %>
+				<%= link_to ""%>
+				<% end %>
+				<div class="forum-favorites">
+					<% if content.favorited_by?(current_user) %>
+					<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :delete %>
+					<% else %>
+					<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :post %>
+					<% end %>
+					<p><span> favorites: </span><%= content.forum_favorites.count %></p>
+				</div>
+				<div class="reply">
+					<% content.forum_replies.each do |reply| %>
+					<%= reply.user.account_name %>
+					<%= reply.comments %>
+					<%= reply.created_at.strftime('%Y/%m/%d') %>
+					<% if content.user == current_user %>
+					<%= link_to "",forum_forum_reply_path(content.id, reply.id),method: :delete, local: true  %>
+					<% end %>
+					<% end %>
+					<div class="submit">
+						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(content), local: true do |form| %>
+						<%= form.text_area :comments %>
+						<%= form.submit %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<% end %>
 		</div>
-		<div class="field">
-			<%= forum.label :Theme %>
-			<%= forum.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] %>
-		</div>
-		<div class="field">
-			<%= forum.label :image %>
-			<%= forum.attachment_field :forum_image, class: "post_image" %>
-		</div>
-		<%= forum.submit %>
-		<% end %>
 	</div>
 
-
-<div class="forum-contents">
-	<% @forums.each do |content| %>
-	  <%= content.forum_title %>
-	  <%= content.forum_body %>
-	  <%= content.forum_genre %>
-	  <%= attachment_image_tag(content, :forum_image, :fill, 100, 100) %>
-	  <% if user_signed_in? %>
-	  <%= link_to "Edit",edit_forum_path(content.id) %>
-	  <%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
-	  <% else %>
-	  <%= link_to "Writer's_Profile",user_path(content.user_id) %>
-	  <%= link_to %>
-	  <% end %>
-      <div class="forum-favorites">
-	  	<% if content.favorited_by?(current_user) %>
-	  	<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :delete %>
-	  	<% else %>
-	  	<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :post %>
-	  	<% end %>
-	  	<p><span> favorites: </span><%= content.forum_favorites.count %></p>
-	  </div>
-	  <div class="submit">
-		   <%= form_with model:ForumReply.new,url:forum_forum_replies_path(content), local: true do |form| %>
-		      <%= form.text_area :comments %>
-		      <%= form.submit %>
-		   <% end %>
-	  </div>
-	  <div class="reply">
-		  <% content.forum_replies.each do |reply| %>
-		    <%= reply.user.account_name %>
-		    <%= reply.comments %>
-		    <%= reply.created_at.strftime('%Y/%m/%d') %>
-		    <% if content.user == current_user %>
-		       <%= link_to "削除",forum_forum_reply_path(content.id, reply.id),method: :delete, local: true  %>
-		    <% end %>
-		  <% end %>
-	  </div>
-  <% end %>
-</div>
-
-	<!-- こにコメントをeach内でループさせる　　content.forum_replies  n+1問題で検索 % #end %の数とインデント  rubocop-->
+<!-- こにコメントをeach内でループさせる　　content.forum_replies  n+1問題で検索 % #end %の数とインデント  rubocop-->
 
 
