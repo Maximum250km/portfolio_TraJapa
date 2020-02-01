@@ -4,6 +4,7 @@ class ForumsController < ApplicationController
 		@forum_new = Forum.new
 		@forums = Forum.all
 		@forum_replies = ForumReply.all
+		@user = current_user
 	end
 
 	def show

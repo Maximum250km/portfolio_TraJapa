@@ -1,6 +1,5 @@
 <div class="contents">
 	<div class="uk-container uk-container-center  uk-container-small">
-		
 
 		<!-- 検索機能実装用サイドバー建設予定地 -->
 <!-- <div class="uk-width-1-5 uk-panel uk-panel-box uk-background-muted sidebar">
@@ -12,7 +11,6 @@
 					<li class="uk-active">Troubles</li>
 				</ul>
 			</div> -->
-
 
 			<div class=" uk-fieldset">
 				<%= form_with model:@forum_new, local: true do |forum| %>
@@ -40,39 +38,69 @@
 			</div>
 		</div>
 
-
 		<div class="uk-container-center uk-container forum-contents">
 			<% @forums.each do |content| %>
-			<div class="uk-card uk-card-large uk-card-default uk-card-hover forum-contents">
+			<div class="uk-card uk-card-large uk-card-default uk-card-hover forum-contents uk-margin-medium">
 				<p class="uk-badge genre">Topic : <%= content.forum_genre %></p>
-				<h3 class="uk-text-normal">Title : <%= content.forum_title %></h3>
-				<h4 class="uk-text-normal"> Question : <%= content.forum_body %></h4>
-				<h5 class="uk-text-normal uk-text-italic">Topic : <%= content.forum_genre %></h5>
-				<%= attachment_image_tag(content, :forum_image, :fill, 100, 100) %>
-				<% if content.user_id == current_user.id %>
-				<%= link_to "Edit",edit_forum_path(content.id) %>
-				<%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
-				<% else %>
-				<%= link_to "Writer's Profile",user_path(content.user_id) %>
-				<%= link_to ""%>
-				<% end %>
-				<div class="forum-favorites">
-					<% if content.favorited_by?(current_user) %>
-					<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :delete %>
-					<% else %>
-					<%= link_to content.forum_favorites.count, forum_forum_favorites_path(content.id), method: :post %>
-					<% end %>
-					<p><span> favorites: </span><%= content.forum_favorites.count %></p>
+				<div class="uk-card-header ">
+					<div class="uk-grid-small" uk-grid>
+						<div class="uk-width-auto">
+							<%= attachment_image_tag(content.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+						</div>
+						<span>
+							<h6 class="uk-card-title uk-margin-remove-bottom"><%= content.user.account_name %></h6>
+							<h6 class="uk-margin-remove-top">Post at:<%= content.created_at.strftime('%Y/%m/%d') %></h6>
+						</span>
+						<h1 class="uk-text-normal"> <%= content.forum_title %></h1>
+					</div>
 				</div>
+				<div class="uk-card-body">
+					<h2 class="uk-text-normal"> Question : <%= content.forum_body %></h2>
+					<%= attachment_image_tag(content, :forum_image, :fill, 100, 100) %>
+				</div>
+				<button href="#toggle-animation" class="uk-button uk-button-link uk-button-large uk-align-right" type="button" uk-toggle="target: #toggle-animation; animation: uk-animation-fade">
+					<span uk-icon="icon: menu; ratio: 2"></span>
+				</button>
+				<% if content.user_id == current_user.id %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Edit",edit_forum_path(content.id) %>
+					<span uk-icon="icon: trash"></span><%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+				</div>
+				<% else %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(content.user_id) %>
+				</div>
+				<% end %>
+        <div class="forum-favorites uk-card-footer">
+        	<p id="forum_like<%= content.id %>">
+        	<%= render 'forums/forum_favorites', content: content %>
+        	</p>
+        			</div>
+
 				<div class="reply">
+					<h3>Reply</h3>
 					<% content.forum_replies.each do |reply| %>
-					<%= reply.user.account_name %>
-					<%= reply.comments %>
-					<%= reply.created_at.strftime('%Y/%m/%d') %>
-					<% if content.user == current_user %>
-					<%= link_to "",forum_forum_reply_path(content.id, reply.id),method: :delete, local: true  %>
-					<% end %>
-					<% end %>
+					<div class=" uk-background-muted">
+						<ul class="uk-comment-list uk-margin-medium uk-padding-small ">
+							<li>
+								<div class="uk-comment-header uk-text-bold uk-text-large 	">
+									<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+									<%= reply.user.account_name %>
+									<%= reply.created_at.strftime('%Y/%m/%d') %>
+								</div>
+								<div class="uk-comment-body ">
+									<h4> <%= reply.comments %></h4>
+									<% if content.user == current_user %>
+									<%= link_to forum_forum_reply_path(content.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
+									<span uk-icon="icon: trash"></span>
+									<% end %>
+								</li>
+							</ul>
+						</div>
+						<% end %>
+						<% end %>
+					</div>
+
 					<div class="submit">
 						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(content), local: true do |form| %>
 						<%= form.text_area :comments %>
@@ -80,11 +108,9 @@
 						<% end %>
 					</div>
 				</div>
+				<% end %>
 			</div>
-			<% end %>
 		</div>
-	</div>
-
-<!-- こにコメントをeach内でループさせる　　content.forum_replies  n+1問題で検索 % #end %の数とインデント  rubocop-->
+		<!-- こにコメントをeach内でループさせる　　content.forum_replies  n+1問題で検索 % #end %の数とインデント  rubocop-->
 
 
