@@ -12,9 +12,6 @@ class ForumsController < ApplicationController
 		@user =  @forums.user
 	end
 
-	def edit
-		@forums = Forum.find(params[:id])
-	end
 
 	def create
 		@forum_new = Forum.new(forum_params)
@@ -28,6 +25,15 @@ class ForumsController < ApplicationController
 		end
 	end
 
+  def update
+  	@forums_update = Forum.find(forum_params)
+  	if @book.update(forum_params)
+    else
+     @forums = Forum.all
+      render :index
+     end
+  end
+  
 	def destroy
 		forum = Forum.find(params[:id])
 		forum.destroy

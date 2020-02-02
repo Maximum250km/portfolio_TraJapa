@@ -61,21 +61,13 @@
 				<button href="#toggle-animation" class="uk-button uk-button-link uk-button-large uk-align-right" type="button" uk-toggle="target: #toggle-animation; animation: uk-animation-fade">
 					<span uk-icon="icon: menu; ratio: 2"></span>
 				</button>
-				<% if content.user_id == current_user.id %>
-				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
-					<span uk-icon="icon: pencil"></span><%= link_to "Edit",edit_forum_path(content.id) %>
-					<span uk-icon="icon: trash"></span><%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+		     	<%= render 'forums/forum_edit', content: content %>
+
+				<div class="forum-favorites uk-card-footer">
+					<p id="forum_like<%= content.id %>">
+						<%= render 'forums/forum_favorites', content: content %>
+					</p>
 				</div>
-				<% else %>
-				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
-					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(content.user_id) %>
-				</div>
-				<% end %>
-        <div class="forum-favorites uk-card-footer">
-        	<p id="forum_like<%= content.id %>">
-        	<%= render 'forums/forum_favorites', content: content %>
-        	</p>
-        			</div>
 
 				<div class="reply">
 					<h3>Reply</h3>

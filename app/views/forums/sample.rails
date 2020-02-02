@@ -24,5 +24,16 @@ end
 
 
 
- about favs
- 
+ about edit forum
+
+
+ <% if content.user_id == current_user.id %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Edit",edit_forum_path(content.id) %>
+					<span uk-icon="icon: trash"></span><%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+				</div>
+				<% else %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(content.user_id) %>
+				</div>
+				<% end %>
