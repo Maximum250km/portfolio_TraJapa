@@ -25,10 +25,12 @@ class ForumsController < ApplicationController
 		end
 	end
 
+
+
   def update
-  	binding.pry
-  	@forums_update = Forum.find(forum_params.forum_id)
+  	@forums_update = Forum.find(forum_params[:id])
   	if @forums_update.update(forum_params)
+  		redirect_to forums_path
     else
      @forums = Forum.all
       render :index
@@ -43,6 +45,6 @@ class ForumsController < ApplicationController
 
 	private
 	def forum_params
-		params.require(:forum).permit(:user_id, :forum_title, :forum_body, :forum_image, :forum_genre, :comments, :forum_id)
+		params.require(:forum).permit(:user_id, :forum_title, :forum_body, :forum_image, :forum_genre, :comments, :id)
 	end
 end

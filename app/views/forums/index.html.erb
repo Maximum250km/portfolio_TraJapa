@@ -48,10 +48,10 @@
 							<%= attachment_image_tag(forum.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
 						</div>
 						<span>
-							<h6 class="uk-card-title uk-margin-remove-bottom"><%= forum.user.account_name %></h6>
-							<h6 class="uk-margin-remove-top">Post at:<%= forum.created_at.strftime('%Y/%m/%d') %></h6>
+							<div class="uk-card-title uk-margin-remove-bottom"><%= forum.user.account_name %></div>
+							<p class="uk-margin-remove-top">Post at:<%= forum.created_at.strftime('%Y/%m/%d') %></p>
 						</span>
-						<h1 class="uk-text-normal"> <%= forum.forum_title %></h1>
+						<h2 class="uk-text-normal"> <%= forum.forum_title %></h2>
 					</div>
 				</div>
 				<div class="uk-card-body">
@@ -61,9 +61,38 @@
 				<button href="#toggle-animation" class="uk-button uk-button-link uk-button-large uk-align-right" type="button" uk-toggle="target: #toggle-animation; animation: uk-animation-fade">
 					<span uk-icon="icon: menu; ratio: 2"></span>
 				</button>
-
-        <%= render 'forums/forum_edit', forum: forum %>
-
+				<% if forum.user_id == current_user.id %>
+				<%= form_with model:forum, local:true do |f| %>
+		      		<%= f.hidden_field :id, :value => forum.id  %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade"><span uk-icon="icon: pencil"></span>EDIT</button>
+					<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
+						<div class="uk-form-horizontal uk-margin-large">
+							<div class="uk-margin">
+								<label class="uk-form-label">Title</label>
+								<%= f.text_field :forum_title, class: "uk-input form-horizontal-text" %>
+								<div class="uk-margin">
+									<label class="uk-form-label">Question</label>
+									<%= f.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
+									<div class="uk-margin">
+										<div class="uk-margin">
+											<label class="uk-form-label">label</label>
+											<%= f.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] , class: "uk-select" %>
+										</div>
+									</div>
+								</div>
+								<%= f.submit class: "uk-button uk-button-secondary uk-button-large" %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<span uk-icon="icon: trash"></span><%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+				</div>
+				<% else %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(forum.user_id) %>
+				</div>
+				<% end %>
 				<div class="forum-favorites uk-card-footer">
 					<p id="forum_like<%= forum.id %>">
 						<%= render 'forums/forum_favorites', forum: forum %>
@@ -85,7 +114,9 @@
 									<h4> <%= reply.comments %></h4>
 									<% if forum.user == current_user %>
 									<%= link_to forum_forum_reply_path(forum.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
-									<span uk-icon="icon: trash"></span>
+									<div class="forum-footer">
+										<span uk-icon="icon: trash"></span>
+									</div>
 									<% end %>
 								</li>
 							</ul>
@@ -94,14 +125,17 @@
 						<% end %>
 					</div>
 
-					<div class="submit">
-						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(forum), local: true do |form| %>
-						<%= form.text_area :comments %>
-						<%= form.submit %>
+					<div class="uk-fieldset">
+						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(forum),  local: true do |form| %>
+						<%= form.text_area :comments, class: "uk-textarea uk-form-width-large" %>
+						<%= form.submit "Post Answer", class: "uk-button uk-button-default uk-button-primary uk-align-bottom uk-margin-remove-top" %>
+					
+								</div>
 						<% end %>
-					</div>
+			
 				</div>
 				<% end %>
+
 			</div>
 		</div>
 		<!-- こにコメントをeach内でループさせる　　content.forum_replies  n+1問題で検索 % #end %の数とインデント  rubocop-->
