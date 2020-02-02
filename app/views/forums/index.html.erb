@@ -39,39 +39,40 @@
 		</div>
 
 		<div class="uk-container-center uk-container forum-contents">
-			<% @forums.each do |content| %>
+			<% @forums.each do |forum| %>
 			<div class="uk-card uk-card-large uk-card-default uk-card-hover forum-contents uk-margin-medium">
-				<p class="uk-badge genre">Topic : <%= content.forum_genre %></p>
+				<p class="uk-badge genre">Topic : <%= forum.forum_genre %></p>
 				<div class="uk-card-header ">
 					<div class="uk-grid-small" uk-grid>
 						<div class="uk-width-auto">
-							<%= attachment_image_tag(content.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+							<%= attachment_image_tag(forum.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
 						</div>
 						<span>
-							<h6 class="uk-card-title uk-margin-remove-bottom"><%= content.user.account_name %></h6>
-							<h6 class="uk-margin-remove-top">Post at:<%= content.created_at.strftime('%Y/%m/%d') %></h6>
+							<h6 class="uk-card-title uk-margin-remove-bottom"><%= forum.user.account_name %></h6>
+							<h6 class="uk-margin-remove-top">Post at:<%= forum.created_at.strftime('%Y/%m/%d') %></h6>
 						</span>
-						<h1 class="uk-text-normal"> <%= content.forum_title %></h1>
+						<h1 class="uk-text-normal"> <%= forum.forum_title %></h1>
 					</div>
 				</div>
 				<div class="uk-card-body">
-					<h2 class="uk-text-normal"> Question : <%= content.forum_body %></h2>
-					<%= attachment_image_tag(content, :forum_image, :fill, 100, 100) %>
+					<h2 class="uk-text-normal"> Question : <%= forum.forum_body %></h2>
+					<%= attachment_image_tag(forum, :forum_image, :fill, 100, 100) %>
 				</div>
 				<button href="#toggle-animation" class="uk-button uk-button-link uk-button-large uk-align-right" type="button" uk-toggle="target: #toggle-animation; animation: uk-animation-fade">
 					<span uk-icon="icon: menu; ratio: 2"></span>
 				</button>
-		     	<%= render 'forums/forum_edit', content: content %>
+
+        <%= render 'forums/forum_edit', forum: forum %>
 
 				<div class="forum-favorites uk-card-footer">
-					<p id="forum_like<%= content.id %>">
-						<%= render 'forums/forum_favorites', content: content %>
+					<p id="forum_like<%= forum.id %>">
+						<%= render 'forums/forum_favorites', forum: forum %>
 					</p>
 				</div>
 
 				<div class="reply">
 					<h3>Reply</h3>
-					<% content.forum_replies.each do |reply| %>
+					<% forum.forum_replies.each do |reply| %>
 					<div class=" uk-background-muted">
 						<ul class="uk-comment-list uk-margin-medium uk-padding-small ">
 							<li>
@@ -82,8 +83,8 @@
 								</div>
 								<div class="uk-comment-body ">
 									<h4> <%= reply.comments %></h4>
-									<% if content.user == current_user %>
-									<%= link_to forum_forum_reply_path(content.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
+									<% if forum.user == current_user %>
+									<%= link_to forum_forum_reply_path(forum.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
 									<span uk-icon="icon: trash"></span>
 									<% end %>
 								</li>
@@ -94,7 +95,7 @@
 					</div>
 
 					<div class="submit">
-						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(content), local: true do |form| %>
+						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(forum), local: true do |form| %>
 						<%= form.text_area :comments %>
 						<%= form.submit %>
 						<% end %>

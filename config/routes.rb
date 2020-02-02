@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 	resource :favorites, only: [:create, :destroy]
 	resources :post_comments, only: [:create, :destroy]
 	end
-	resources :forums, only: [:index, :show, :edit, :create, :destroy] do
+	resources :forums, only: [:index, :show, :edit, :create, :update, :destroy] do
     resources :forum_replies, only: [:create, :destroy]
     resource :forum_favorites, only:[:create, :destroy]
 	end

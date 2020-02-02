@@ -26,14 +26,15 @@ class ForumsController < ApplicationController
 	end
 
   def update
-  	@forums_update = Forum.find(forum_params)
-  	if @book.update(forum_params)
+  	binding.pry
+  	@forums_update = Forum.find(forum_params.forum_id)
+  	if @forums_update.update(forum_params)
     else
      @forums = Forum.all
       render :index
      end
   end
-  
+
 	def destroy
 		forum = Forum.find(params[:id])
 		forum.destroy
