@@ -1,0 +1,140 @@
+	<%= form_with(model:@forum_comment)url:forum_forum_comments_path(forum.id) do |forum| %>
+
+	class ForumCommentsController < ApplicationController
+	def create
+		forum_reply = Folum.find(params[:id])
+		comment = current_user
+		comment.user_id = current_user.id
+		comment.forum_id = params[:forum_id]
+		comment.save
+end
+
+private
+  def forum_comment_params
+    params.require(:forum_comment).permit(:user_id, :forum_id, :comments)
+  end
+
+end
+
+
+
+
+
+---------------------------------------------
+
+
+
+ about edit forum
+
+
+ <% if content.user_id == current_user.id %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Edit",edit_forum_path(content.id) %>
+					<span uk-icon="icon: trash"></span><%= link_to "Destroy",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+				</div>
+				<% else %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(content.user_id) %>
+				</div>
+				<% end %>
+
+
+------------------------------------------------------------
+
+<!-- 共通テンプレート　変数名が悪い例として戒め　-->
+						<% if content.user_id == current_user.id %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade"><span uk-icon="icon: pencil"></span>EDIT</button>
+					<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
+						<form class="uk-form-horizontal uk-margin-large">
+							<div class="uk-margin">
+								<label class="uk-form-label" for="form-horizontal-text">Title</label>
+								<div class="uk-form-controls">
+									<input class="uk-input" id="form-horizontal-text" type="text" placeholder="Edit Title">
+								</div>
+								<div class="uk-margin">
+									<label class="uk-form-label" for="form-horizontal-text">Question</label>
+									<div class="uk-margin">
+										<textarea class="uk-textarea" rows="5" placeholder="Textarea"></textarea>
+										<div class="uk-margin">
+											<div uk-form-custom="target: > * > span:first-child">
+												<select>
+													<option value="">Please select...</option>
+													<option value="1">Travel</option>
+													<option value="2">Spot</option>
+													<option value="3">Tips</option>
+													<option value="4">Trouble</option>
+												</select>
+												<button class="uk-button uk-button-default" type="button" tabindex="-1">
+													<span></span>
+													<span uk-icon="icon: chevron-down"></span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<span uk-icon="icon: trash"></span><%= link_to "DELETE",forum_path(content.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+				</div>
+				<% else %>
+				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(content.user_id) %>
+				</div>
+				<% end %>
+       
+        ---------------------------------------------------------------------
+         <%= render 'forums/forum_edit', forum: forum %>
+         <!-- 共通テンプレートへの利育 -->
+         --------------------------------------------------
+         		<%= f.hidden_field :id, :value => forum.id  %>
+         		<!--  非同期を試みた際、共通テンプレート部分いて使用。　 -->
+
+         		------------------------------------------------------
+
+<!--  共通テンプレート部分コード　変数目がcontentからforumに切り替わっている -->
+<% if forum.user_id == current_user.id %>
+<%= form_with model:forum do |f| %>
+<%= f.hidden_field :id, :value => forum.id  %>
+<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+	<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade"><span uk-icon="icon: pencil"></span>EDIT</button>
+	<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
+		<div class="uk-form-horizontal uk-margin-large">
+			<div class="uk-margin">
+				<label class="uk-form-label">Title</label>
+				<%= f.text_field :forum_title, class: "uk-input form-horizontal-text" %>
+				<div class="uk-margin">
+					<label class="uk-form-label">Question</label>
+					<%= f.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
+					<div class="uk-margin">
+						<div class="uk-margin">
+						<label class="uk-form-label">label</label>
+							<%= f.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] , class: "uk-select" %>
+						</div>
+					</div>
+				</div>
+			<%= f.submit class: "uk-button uk-button-secondary uk-button-large" %>
+			<% end %>
+		</div>
+	</div>
+</div>
+	<span uk-icon="icon: trash"></span><%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+</div>
+<% else %>
+<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+	<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(forum.user_id) %>
+</div>
+<% end %>
+
+---------------------------------------------
+<!-- 非同期を試みた際のコントローラ記述 -->
+def update
+  	@forums_update = Forum.find(forum_params[:id])
+  	if @forums_update.update(forum_params)
+  		redirect_to forums_path
+    else
+     @forums = Forum.all
+      render :index
+     end
+  end

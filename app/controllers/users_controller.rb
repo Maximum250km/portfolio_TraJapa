@@ -14,9 +14,9 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-      if current_user != @user
+    if current_user != @user
       redirect_to user_path(current_user)
-      end
+    end
   end
 
   def update
@@ -35,10 +35,10 @@ class UsersController < ApplicationController
   end
 
   #url直接防止　メソッドを自己定義してbefore_actionで発動。
-   def baria_user
+  def baria_user
     unless params[:id].to_i == current_user.id
       redirect_to user_path(current_user)
     end
-   end
+  end
 
 end

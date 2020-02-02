@@ -35,33 +35,33 @@ class PostsController < ApplicationController
     if @post_new.save
       redirect_to post_path(@post_new.id), notice: "successfully posted "
     else
-       @posts= Post.all
-       @user = current_user
-       render 'index'
-    end
-  end
+     @posts= Post.all
+     @user = current_user
+     render 'index'
+   end
+ end
 
-  def update
+ def update
+  @post = Post.find(params[:id])
+  if @post.update(post_params)
+    redirect_to post_path(@post),notice: "update completed !"
+  else
+    @post_new = @post
     @post = Post.find(params[:id])
-     if @post.update(post_params)
-      redirect_to post_path(@post),notice: "update completed !"
-     else
-      @post_new = @post
-      @post = Post.find(params[:id])
-      render :edit
-     end
+    render :edit
   end
+end
 
-  def destroy
-    post = Post.find(params[:id])
-    post.destroy
-    redirect_to posts_path, notice: "your post was deleted"
-  end
+def destroy
+  post = Post.find(params[:id])
+  post.destroy
+  redirect_to posts_path, notice: "your post was deleted"
+end
 
 
 private
-  def post_params
-    params.require(:post).permit(:title, :body, :post_image, :post_genre, :spot)
-  end
+def post_params
+  params.require(:post).permit(:title, :body, :post_image, :post_genre, :spot)
+end
 
 end
