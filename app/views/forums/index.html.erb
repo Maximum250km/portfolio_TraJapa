@@ -61,11 +61,14 @@
 				<button href="#toggle-animation" class="uk-button uk-button-link uk-button-large uk-align-right" type="button" uk-toggle="target: #toggle-animation; animation: uk-animation-fade">
 					<span uk-icon="icon: menu; ratio: 2"></span>
 				</button>
-				<% if forum.user_id == current_user.id %>
+				
 				<%= form_with model:forum, local:true do |f| %>
 		      		<%= f.hidden_field :id, :value => forum.id  %>
+		      		<% if forum.user_id == current_user.id %>
 				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
-					<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade"><span uk-icon="icon: pencil"></span>EDIT</button>
+					<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade">
+						<span uk-icon="icon: pencil"></span>EDIT
+					</button>
 					<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
 						<div class="uk-form-horizontal uk-margin-large">
 							<div class="uk-margin">
