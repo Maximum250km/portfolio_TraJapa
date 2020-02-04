@@ -21,10 +21,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="uk-card-body uk-margin-remove-top">
 
-					<h2><%= @post.body%></h2><br>
-					<div class="uk-card-badge uk-label">	<%= @post.post_genre %></div><br>
+				<div class="uk-card-body uk-margin uk-padding">
+					<h2><%= @post.body%></h2>
+					<div class="uk-card-badge uk-label">
+						<%= @post.post_genre %>
+					</div>
+				</div>
 					<p id="like_<%= @post.id %>">
 						<%= render 'posts/favorite', post:@post %>
 					</p>
@@ -32,11 +35,10 @@
 					<% if @post.user_id == current_user.id %>
 					<%= link_to "Edit",edit_post_path(@post), class: "btn-sm btn-success edit_post_#{@post.id}" %>
 					<%= link_to "Destroy",post_path(@post), method: :delete, data: {confirm: "Do you want to delete ?"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %>
-					<div class="uk-text-large uk-align-right uk-margin-remove-bottom"> Posted at <br>
+					<div class="uk-text uk-align-left uk-margin-remove-bottom"> Posted at 
 						<%= @post.created_at.strftime('%Y/%m/%d') %></div>
 					<% end %>
-				</div>
-				<div class="uk-card-footer uk-margin-remove-top">
+				<div class="uk-card-footer uk-margin-medium">
 					<div id="comments">
 						<%= render 'posts/commentform', post: @post %>
 					</div>
@@ -45,7 +47,10 @@
 		</div>
 	</div>
 
-	<p id="spot">	<%= @post.spot %></p><br>
+		
+
+
+		<p id="spot">	<%= @post.spot %></p><br>
 	<div id='gmap' style="height:400px;width:600px"></div> <!-- 地図を表示する領域 -->
 
 	<script>

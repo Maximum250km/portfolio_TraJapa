@@ -5,6 +5,6 @@
 					<% end %>
 					<% else %>
 					<%= link_to forum_forum_favorites_path(forum.id), method: :post, remote: true do %>
-					<i class="fas fa-thumbs-up"></i> <%= forum.forum_favorites.count %> !<p class="uk-text-large"> People upvoted !</p>
+					<i class="fas fa-thumbs-up"></i> <%= forum.forum_favorites.count %> <p class="uk-text-large"> People upvoted !</p>
 					<% end %>
 					<% end %>

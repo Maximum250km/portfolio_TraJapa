@@ -40,6 +40,7 @@
                 <li><%= current_user.account_name %></li>
                 <li class="uk-active"></li>
                 <li><%= link_to "View My Profile", user_path(current_user.id) %></li>
+                <li><%= link_to "Post Your Trip", new_post_path %></li>
                 <li><%= link_to 'LOG OUT', destroy_user_session_path, method: :delete %></li>
               </ul>
             </div>
@@ -48,8 +49,8 @@
         <% else %>
         <li class="uk-active"><%= link_to 'HOME', root_path %></li>
         <li class="uk-active"><%= link_to 'ABOUT', posts_about_path%></li>
-        <li class="uk-active"><%= link_to 'SIGN_UP', new_user_registration_path %></li>
-        <li class="uk-active"><%= link_to 'LOG_IN', new_user_session_path %></li>
+        <li class="uk-active"><%= link_to 'SIGN UP', new_user_registration_path %></li>
+        <li class="uk-active"><%= link_to 'LOG IN', new_user_session_path %></li>
         <% end %>
       </ul>
     </div>
