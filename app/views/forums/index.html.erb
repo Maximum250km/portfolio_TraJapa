@@ -107,10 +107,10 @@
 						<div class="reply">
 							<h3>Reply</h3>
 							<% forum.forum_replies.each do |reply| %>
-							<div class=" uk-background-muted">
-								<ul class="uk-comment-list uk-margin-medium uk-padding-small ">
+							<div class="reply-body">
+								<ul class="uk-comment-list uk-margin-medium uk-padding-small  ">
 									<li>
-										<div class="uk-comment-header uk-text-bold uk-text-large 	">
+										<div class="uk-comment-header uk-text-bold uk-text-large vertical-line 	">
 											<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
 											<%= reply.user.account_name %>
 											<%= reply.created_at.strftime('%Y/%m/%d') %>
