@@ -55,83 +55,82 @@
 
 		<!--  ここからEdit　Deleteボタンに関する記述  -->
 
-		  <button id="menu-toggle-button" href="#toggle-animation" class="uk-button uk-button-link uk-button-large uk-align-right" type="button" uk-toggle="target: #toggle-animation; animation: uk-animation-fade">
-			<span uk-icon="icon: menu; ratio: 2"></span>
-		  </button>
+		  
 				<%= form_with model:forum, local:true do |f| %>
-					<% if forum.user_id != current_user.id %>
-						<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right">
-							<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade">
-								<span uk-icon="icon: pencil"></span>EDIT
-							</button>
-							<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
-								<div class="uk-form-horizontal uk-margin-large">
-									<div class="uk-margin">
-									<label class="uk-form-label">Title</label>
-										<%= f.text_field :forum_title, class: "uk-input form-horizontal-text" %>
+					<% if forum.user_id == current_user.id %>
+						<%= f.hidden_field :id, :value => forum.id  %>
+							<div id="toggle-animation" class="uk-card uk-card-primaly uk-margin-small uk-align-right">
+								<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade">
+									<span uk-icon="icon: pencil"></span>EDIT
+								</button>
+								<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
+									<div class="uk-form-horizontal uk-margin-large">
+										<div class="uk-margin">
+										<label class="uk-form-label">Title</label>
+											<%= f.text_field :forum_title, class: "uk-input form-horizontal-text" %>
+										</div>
+										<div class="uk-margin">
+											<label class="uk-form-label">
+												Question
+											</label>
+											<%= f.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
+										</div>
+										<div class="uk-margin">
+											<label class="uk-form-label">
+											Theme
+											</label>
+											<%= f.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] , class: "uk-select" %>
+										</div>
+											<%= f.submit class: "uk-button uk-button-secondary uk-button-large uk-margin-small-top" %>
 									</div>
-									<div class="uk-margin">
-										<label class="uk-form-label">
-											Question
-										</label>
-										<%= f.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
-									</div>
-									<div class="uk-margin">
-										<label class="uk-form-label">
-										Theme
-										</label>
-										<%= f.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] , class: "uk-select" %>
-									</div>
-										<%= f.submit class: "uk-button uk-button-secondary uk-button-large uk-margin-small-top" %>
 								</div>
-							</div>
-							<span uk-icon="icon: trash"></span>
-							<%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
-					  </div>
-			    <% else %>
-					<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
-						<span uk-icon="icon: pencil"></span>
-							<%= link_to "Writer's Profile",user_path(forum.user_id) %>
-					</div>
-					<% end %>
-			  <% end %>
-			<!-- ここまで -->
+								<span uk-icon="icon: trash"></span>
+								<%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+						  </div>
+				    <% else %>
+						<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
+							<span uk-icon="icon: pencil"></span>
+								<%= link_to "Writer's Profile",user_path(forum.user_id) %>
+						</div>
+						<% end %>
+				  <% end %>
+				<!-- ここまで -->
 
-			  <div class="forum-favorites uk-card-footer">
-				  <p id="forum_like<%= forum.id %>">
-						<%= render 'forums/forum_favorites', forum: forum %>
-					</p>
-				</div>
-				<div class="reply">
-					<h3>Reply</h3>
-						<% forum.forum_replies.each do |reply| %>
-							<div class="reply-body">
-								<ul class="uk-comment-list uk-margin-medium uk-padding-small  ">
-									<li>
-										<div class="uk-comment-header uk-text-bold uk-text-large vertical-line 	">
-											<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
-											<%= reply.user.account_name %>
-											<%= reply.created_at.strftime('%Y/%m/%d') %>
-										</div>
-										<div class="uk-comment-body ">
-											<h4><%= reply.comments %></h4>
-											<% if forum.user == current_user %>
-												<%= link_to forum_forum_reply_path(forum.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
-													<div class="forum-footer">
-														<span uk-icon="icon: trash"></span>
-													</div>
+				  <div class="forum-favorites uk-card-footer">
+					  <p id="forum_like<%= forum.id %>">
+							<%= render 'forums/forum_favorites', forum: forum %>
+						</p>
+					</div>
+					<div class="reply">
+						<h3>Reply</h3>
+							<% forum.forum_replies.each do |reply| %>
+								<div class="reply-body">
+									<ul class="uk-comment-list uk-margin-medium uk-padding-small  ">
+										<li>
+											<div class="uk-comment-header uk-text-bold uk-text-large vertical-line 	">
+												<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+												<%= reply.user.account_name %>
+												<%= reply.created_at.strftime('%Y/%m/%d') %>
+											</div>
+											<div class="uk-comment-body ">
+												<h4><%= reply.comments %></h4>
+												<% if forum.user == current_user %>
+													<%= link_to forum_forum_reply_path(forum.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
+														<div class="forum-footer">
+															<span uk-icon="icon: trash"></span>
+														</div>
+													<% end %>
 												<% end %>
-											<% end %>
-										</div>
-									</li>
-								</ul>
-              </div>
-					<% end %>
-				</div>
-				<div class="uk-fieldset">
-					<%= form_with model:ForumReply.new,url:forum_forum_replies_path(forum),  local: true do |form| %>
-						<%= form.text_area :comments, class: "uk-textarea uk-form-width-large" %>
-							<%= form.submit "Post Answer", class: "uk-button uk-button-default uk-button-primary uk-align-bottom uk-margin-remove-top" %>
+											</div>
+										</li>
+									</ul>
+	              </div>
+						<% end %>
+					</div>
+					<div class="uk-fieldset">
+						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(forum),  local: true do |form| %>
+							<%= form.text_area :comments, class: "uk-textarea uk-form-width-large" %>
+								<%= form.submit "Post Answer", class: "uk-button uk-button-default uk-button-primary uk-align-bottom uk-margin-remove-top" %>
 				</div>
 			</div>
 			<% end %>

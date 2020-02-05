@@ -28,7 +28,7 @@ class ForumsController < ApplicationController
 
 
   def update
-  	@forums_update = Forum.find(forum_params[:id])
+  	@forums_update = Forum.find(params[:id])
   	if @forums_update.update(forum_params)
   		redirect_to forums_path
     else
