@@ -1,10 +1,12 @@
 
 					<% if forum.favorited_by?(current_user) %>
 					<%= link_to forum_forum_favorites_path(forum.id), method: :delete, remote: true do %>
-					<span uk-icon="icon: happy"></span>  <%= forum.forum_favorites.count %><p class="uk-text-large"> People upvoted!</p>
+					<span uk-icon="icon: happy"></span>
 					<% end %>
+					<%= forum.forum_favorites.count %>People upvoted!
 					<% else %>
 					<%= link_to forum_forum_favorites_path(forum.id), method: :post, remote: true do %>
-					<i class="fas fa-thumbs-up"></i> <%= forum.forum_favorites.count %> <p class="uk-text-large"> People upvoted !</p>
+					<i class="fas fa-thumbs-up"></i>
 					<% end %>
+					<%= forum.forum_favorites.count %>  People upvoted !
 					<% end %>
