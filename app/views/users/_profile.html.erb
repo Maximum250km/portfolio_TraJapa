@@ -2,37 +2,41 @@
 	<table class="uk-table">
 		<tr><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg",class: "icon" %></tr>
 		<p class="uk-text-large">
-			<%= user.account_name %></p>
+			<%= user.account_name %>
+		</p>
 			<p>From :<%= user.nationality %></p>
-			<% user.followings.count %>
-			<th>
-				<span class="uk-label uk-label-primaly">
-					<%= user.followings.count %> 
-					<%= link_to follows_user_path(user.id) do%>
-					Follows
-				</span>
-			</th>
-			<% end %>
-			<% user.followers.count %>
-			<th>
-				<span class="uk-label uk-label-success">
-					<%= user.followers.count %><%= link_to followers_user_path(user.id) do%> 
-					Followers</span>
-					<% end %>
-			</th>
+				<th>
+					<span class="uk-label uk-label-primaly">
+						<%= user.followings.count %> 
+						<%= link_to follows_user_path(user.id) do%>
+						Follows
+						<% end %>
+					</span>
+				</th>
+				<th>
+					<span class="uk-label uk-label-success">
+							<%= user.followers.count %><%= link_to followers_user_path(user.id) do%> 
+							Followers
+							<% end %>
+					</span>
+				</th>
 	</table>
 		<div class="follow-count">
 			<% if current_user != user %>
-			<% if user.followed_by?(current_user) %>
-			<span class="uk-label uk-label-warning"><%=link_to "Unfollow this user", user_relationships_path(user.id), method: :delete %></span>
-			<% else %>
-			<span class="uk-label uk-label-warning"><%=link_to "Follow this user", user_relationships_path(user.id), method: :book %></span>
-			<% end %>
+				<% if user.followed_by?(current_user) %>
+					<span class="uk-label uk-label-warning">
+						<%=link_to "Unfollow this user", user_relationships_path(user.id), method: :delete %>
+					</span>
+				<% else %>
+					<span class="uk-label uk-label-warning">
+						<%=link_to "Follow this user", user_relationships_path(user.id), method: :book %>
+					</span>
+				<% end %>
 			<% end %>
 		</div>
-		<% if current_user == user %>
+			<% if current_user == user %>
 		<div class="edit-button uk-margin-small-top">
 			<%= link_to 'edit',edit_user_path(user.id), class: "btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 		</div>
-		<% end %>
+			<% end %>
 </div>

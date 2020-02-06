@@ -4,7 +4,6 @@
 			<%= render 'users/profile', user: current_user %>
 			<!--メモ　右側の指定に注意。そこを間違えるとエラーが発生して表示されない -->
 		</div>
-
 		<div class="uk-width-2-3">
 			<h2>Users</h2>
 			<!--users一覧 -->
@@ -19,18 +18,18 @@
 				</thead>
 				<tbody>
 					<% @users.each do |user| %>
-					<tr>
-						<td><%= attachment_image_tag user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon" %></td>
-						<td><%= user.account_name%></td>
-						<td><%= link_to "Show", user, class: "user_#{user.id}" %></td>
-						<td><% if current_user != user %></td>
-						 <% if user.followed_by?(current_user) %>
-            <p><%=link_to "following",user_relationships_path(user), method: :delete %></p>
-        <% else %>
-            <p><%=link_to "follow? " ,user_relationships_path(user), method: :post %></p>
-        <% end %>
-    <% end %>
-					</tr>
+						<tr>
+							<td><%= attachment_image_tag user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon" %></td>
+							<td><%= user.account_name%></td>
+							<td><%= link_to "Show", user, class: "user_#{user.id}" %></td>
+							<td><% if current_user != user %></td>
+						 		<% if user.followed_by?(current_user) %>
+            		<p><%=link_to "following",user_relationships_path(user), method: :delete %></p>
+        				<% else %>
+            		<p><%=link_to "follow? " ,user_relationships_path(user), method: :post %></p>
+        			   <% end %>
+    			    <% end %>
+						</tr>
 					<% end %>
 				</tbody>
 			</table>
