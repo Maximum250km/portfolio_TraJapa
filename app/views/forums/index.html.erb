@@ -54,8 +54,6 @@
 			</div>
 
 		<!--  ここからEdit　Deleteボタンに関する記述  -->
-
-		  
 				<%= form_with model:forum, local:true do |f| %>
 					<% if forum.user_id == current_user.id %>
 						<%= f.hidden_field :id, :value => forum.id  %>
@@ -88,8 +86,8 @@
 								<%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
 						  </div>
 				    <% else %>
-						<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
-							<span uk-icon="icon: pencil"></span>
+						<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right">
+							<span uk-icon="icon: users"></span>
 								<%= link_to "Writer's Profile",user_path(forum.user_id) %>
 						</div>
 						<% end %>

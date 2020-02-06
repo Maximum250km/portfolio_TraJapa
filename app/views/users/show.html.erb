@@ -14,10 +14,12 @@
 						<%= link_to post.title,post, class: "post_#{post.id}" %>
 						<span>	posted at <%= @post.created_at.strftime('%Y/%m/%d') %></span>
 					</div>
+					<div class="uk-card-badge uk-label">
+							<%= @post.post_genre %>
+					</div>
+						<%= link_to (post) do %>
 					<div class="uk-card-body uk-margin-small uk-text-lead">
-						<div class="uk-card-badge uk-label">
-							<%= @post.post_genre %></div><br>
-						<%= link_to (@post) do %>
+						<br>
 						<%= post.body %>
 					</div>
 					<% end %>

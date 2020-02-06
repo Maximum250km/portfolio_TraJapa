@@ -1,4 +1,4 @@
-<div class="profile  uk-width-medium uk-align-center uk-text-center">
+<div class="profile  uk-width-medium uk-align-center uk-text-center uk-background-muted">
 	<table class="uk-table">
 		<tr><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg",class: "icon" %></tr>
 		<p class="uk-text-large">
@@ -17,11 +17,10 @@
 			<th>
 				<span class="uk-label uk-label-success">
 					<%= user.followers.count %><%= link_to followers_user_path(user.id) do%> 
-					Followers
-				</span>
+					Followers</span>
+					<% end %>
 			</th>
-			<% end %>
-		</table>
+	</table>
 		<div class="follow-count">
 			<% if current_user != user %>
 			<% if user.followed_by?(current_user) %>
@@ -33,7 +32,7 @@
 		</div>
 		<% if current_user == user %>
 		<div class="edit-button uk-margin-small-top">
-			<%= link_to 'edit',edit_user_path(user.id), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+			<%= link_to 'edit',edit_user_path(user.id), class: "btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 		</div>
 		<% end %>
-	</div>
+</div>

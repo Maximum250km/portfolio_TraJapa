@@ -1,35 +1,41 @@
-<h2>User info</h2>
-
 <%= form_for(@user) do |f| %>
-
 <!-- エラーメッセージ表示-->
 <% if @user.errors.any? %>
-	<h3><%= @user.errors.count %>error occurrence</h3><!--エラーメッセ-->
-	<ul>
-		<% @user.errors.full_messages.each do |message| %>
-		<li><%= message %></li>
-		<% end %>
-	</ul>
+<h3><%= @user.errors.count %>error occurrence</h3><!--エラーメッセ-->
+<ul>
+	<% @user.errors.full_messages.each do |message| %>
+	<li><%= message %></li>
+	<% end %>
+</ul>
 <% end %>
 <!-- エラーメッセージ表示-->
-
-<div class="field">
-	<%= f.label :account_name %>
-	<%= f.text_field :account_name, class: "name" %>
+<div class="uk-container uk-width-large uk-background-muted">
+		<div class="uk-align-center ">
+	<fieldset class="uk-fieldset ">
+		<legend class="uk-legend uk-text-center uk-text-primary">Edit your Profile</legend>
+		<div class="field">
+			<%= f.label :account_name, class: "uk-label" %>
+			<%= f.text_field :account_name, class: "uk-input" %>
+		</div>
+		<div class="field">
+			<%= f.label :nationality, class: "uk-label" %><br />
+			<%= f.text_field :nationality, id:"country"%>
+			<script src="/assets/countrySelect.min.js"></script>
+			<script>
+				$("#country").countrySelect();
+			</script>
+		</div>
+		<div class="field">
+			<%= f.label :image, class: "uk-label" %>
+			<%= f.attachment_field :profile_image  %>
+		</div>
+		<div class="field">
+			<%= f.label :profile, class: "uk-label" %>
+			<%= f.text_area :profile, class: "uk-textarea" %>
+		</div>
+		<div class="actions">
+			<%= f.submit class: "btn btn-primary" %>
+		</div>
+		<% end %>
+	</fieldset>
 </div>
-
-<div class="field">
-	<%= f.label :image %>
-	<%= f.attachment_field :profile_image, class: "user_image" %>
-</div>
-
-<div class="field">
-	<%= f.label :profile %>
-	<%= f.text_area :profile, class: "profile" %>
-</div>
-
-<div class="actions">
-	<%= f.submit %>
-</div>
-
-<% end %>
