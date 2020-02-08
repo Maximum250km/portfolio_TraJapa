@@ -1,24 +1,58 @@
-<div class="uk-container uk-margin-medium">
+<div class="uk-container uk-margin-medium-top">
 	<div class="uk-grid">
 		<div class="uk-width-1-3">
-	  	<%= render 'users/profile', user: @user %>
+			<%= render 'users/profile', user: @user %>
 		</div>
 		<div class="uk-width-2-3">
-			<h4 class="uk-text-center">Top 5 Post </h4>
-				<% @popular_posts.each do |post| %>
-			　		<div class="uk-card uk-card-default uk-display-inline-block uk-margin-small ">
-						<div class="uk-card-header ">
-						<span class="uk-badge"><%= post.post_genre %></span>
-							<%= link_to post.title, post, class: "post_#{post.id}" %>
+			<h4 class="uk-text-center ">Top 5 Post </h4>
+			<ul class="bxslider uk-margin-remove">
+				<% @popular_posts.each do |p| %>
+				<li>
+					<div class="uk-panel uk-padding ">
+						<div class="uk-panel uk-panel-header uk-padding-remove-top">
+							<span class="uk-badge uk-align-right"><%= p.post_genre %></span>
+							<p class="uk-text-lead">Title: <%= link_to p.title, p, class: "post_#{p.id}" %></p>
 						</div>
-						<div class="uk-card-footer">
-							<%= link_to(post.user) do %>
-							<%= attachment_image_tag(post.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %>
-							by <%= post.user.account_name %>
-							<% end %>
+						<div class="uk-width-large uk-margin-medium-top ranking-footer ">
+							<%= link_to(p.user) do %>
+							<span class="rank-footer"><%= attachment_image_tag(p.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %>
+							</span>
+							<div class= "rank-footer uk-margin-small-left">
+								Posted by <%= p.user.account_name %>
+								<% end %>
+								<br />
+								<%= p.favorites.count %> People upvoted!
+							</div>
 						</div>
-					</div>
-				<% end %>
+					</li>
+					<% end %>
+				</ul>
+<h4 class="uk-text-center "> Lates Post </h4>
+			<ul class="bxslider uk-margin-remove">
+				<% @new_posts.each do |n| %>
+				<li>
+					<div class="uk-panel uk-padding ">
+						<div class="uk-panel uk-panel-header uk-padding-remove-top">
+							<span class="uk-badge uk-align-right"><%= n.post_genre %></span>
+							<p class="uk-text-lead">Title: <%= link_to n.title, n, class: "post_#{n.id}" %></p>
+						</div>
+						<div class="uk-width-large uk-margin-medium-top ranking-footer ">
+							<%= link_to(n.user) do %>
+							<span class="rank-footer"><%= attachment_image_tag(n.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %>
+							</span>
+							<div class= "rank-footer uk-margin-small-left">
+								Posted by <%= n.user.account_name %>
+								<% end %>
+								<br />
+								<%= n.created_at.strftime('%Y/%m/%d %H:%M') %>
+							</div>
+						</div>
+					</li>
+					<% end %>
+				</ul>
+
+
+			</div>
 		</div>
 	</div>
-</div>
+

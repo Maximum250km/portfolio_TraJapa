@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def index
     @popular_posts = Post.find(Favorite.group(:post_id).order('count(post_id) desc').limit(5).pluck(:post_id))
-    
+    @new_posts = Post.all.order(id: "DESC").limit(5)
     @user = current_user
   end
 

@@ -94,7 +94,24 @@ display: inline-block;
 .forum-footer{
 	float:left;
 }
-a:link, a:visited, a:hover, a:active {
-  color: blue;
+.bx-wrapper {
+    background-color: transparent;
+    margin: 0px auto;
+    border: none;
+    box-shadow: none;
 }
-
+.bx-wrapper img{
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 0;
+}
+.uk-panel-footer{
+	display:inline-block;
+}
+.ranking-footer{
+	display: inline-block;
+}
+.rank-footer{
+	float: left;
+}
