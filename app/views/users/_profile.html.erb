@@ -1,4 +1,4 @@
-<div class="profile  uk-width-medium uk-align-center uk-text-center uk-background-muted">
+<div class="profile  uk-width-medium uk-align-center uk-text-center uk-background-muted ">
 	<table class="uk-table">
 		<tr><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg",class: "icon" %></tr>
 		<p class="uk-text-large">
@@ -6,8 +6,8 @@
 		</p>
 			<p>From :<%= user.nationality %></p>
 				<th>
-					<span class="uk-label uk-label-primaly">
-						<%= user.followings.count %> 
+					<span class="uk-label uk-label-warning">
+						<%= user.followings.count %>
 						<%= link_to follows_user_path(user.id) do%>
 						Follows
 						<% end %>
