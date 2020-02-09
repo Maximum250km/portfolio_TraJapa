@@ -39,7 +39,8 @@ def follows
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to user_path(@user), notice: "successfully updated user!"
+      flash[:notice] = "Profile Updated"
+      redirect_to user_path(@user)
     else
       flash[:message] = ' error ! can not be blank '
       render "edit"
