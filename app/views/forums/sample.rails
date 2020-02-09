@@ -138,3 +138,23 @@ def update
       render :index
      end
   end
+
+
+  ===================================================
+  <% if @forum_new.errors.any? %>
+<h3><%= @forum_new.errors.count %>error occurrence</h3>
+<ul>
+	<% @forum_new.errors.full_messages.each do |message| %>
+	<li><%= message %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<% if @forums_update.errors.any? %>
+<h3><%= @forums_update.errors.count %>error occurrence</h3>
+<ul>
+	<% @forums_update.errors.full_messages.each do |message| %>
+	<li><%= message %></li>
+	<% end %>
+</ul>
+<% end %>

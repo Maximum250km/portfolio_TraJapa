@@ -1,4 +1,5 @@
 class ForumsController < ApplicationController
+	before_action :set_forum
 
 	def index
 		@forum_new = Forum.new
@@ -6,12 +7,6 @@ class ForumsController < ApplicationController
 		@forum_replies = ForumReply.all
 		@user = current_user
 	end
-
-	def show
-		@forums = Forum.find(params[:id])
-		@user =  @forums.user
-	end
-
 
 	def create
 		@forum_new = Forum.new(forum_params)
@@ -25,15 +20,14 @@ class ForumsController < ApplicationController
 		end
 	end
 
-
-
   def update
   	@forums_update = Forum.find(params[:id])
   	if @forums_update.update(forum_params)
-  		redirect_to forums_path
+  		#redirect_to forums_path
+      render 'index'
     else
      @forums = Forum.all
-      render :index
+      render 'index'
      end
   end
 
@@ -45,6 +39,11 @@ class ForumsController < ApplicationController
 
 	private
 	def forum_params
-		params.require(:forum).permit(:user_id, :forum_title, :forum_body, :forum_image, :forum_genre, :comments, :id)
+		params.require(:forum).permit(:user_id, :forum_title, :forum_body, :forum_genre, :comments, :id)
+	end
+
+	def set_forum
+	  @forum_new = Forum.new
+	  # index内にて投稿/編集を行うため、必要な措置（renderの際に@forum_new = Forum.newがないとエラーが発生する。）
 	end
 end

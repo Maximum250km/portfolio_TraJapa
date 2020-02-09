@@ -1,3 +1,23 @@
+<% if @forum_new.errors.any? %>
+<h3><%= @forum_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
+<ul>
+	<% @forum_new.errors.full_messages.each do |message| %>
+	<li><%= message %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<% unless @forums_update.nil? %>
+<% if @forums_update.errors.any? %>
+<h3><%= @forums_update.errors.count %>error occurrence</h3>
+<ul>
+	<% @forums_update.errors.full_messages.each do |message| %>
+	<li><%= message %></li>
+	<% end %>
+</ul>
+<% end %>
+<% end %>
+
 <div class="uk-container uk-container-center  uk-container-small uk-margin-medium-top">
 	<div class="uk-container-width uk-width-auto uk-align-center">
 		<fieldset class="uk-fieldset">
@@ -10,11 +30,6 @@
 			<div class="field">
 				<%= forum.label :qustion, class: "uk-label" %>
 				<%= forum.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
-			</div>
-			<br>
-			<div class="field">
-				<%= forum.label :image, class: "uk-label" %>
-				<%= forum.attachment_field :forum_image, class: "uk-button uk-button-default" %>
 			</div>
 			<br>
 			<div class="field">
@@ -50,7 +65,6 @@
 			</div>
 			<div class="uk-card-body">
 				<h2 class="uk-text-normal"> Question : <%= forum.forum_body %></h2>
-				<%= attachment_image_tag(forum, :forum_image, :fill, 100, 100) %>
 			</div>
 
 		<!--  ここからEdit　Deleteボタンに関する記述  -->
