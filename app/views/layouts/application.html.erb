@@ -31,7 +31,7 @@
           <div class="uk-navbar-right ">
             <ul class="uk-navbar-nav uk-text-bold uk-text-emphasis uk-margin-medium-right">
               <% if user_signed_in? %>
-                <li class="uk-active uk-margin-medium-right"><%= link_to 'ABOUT', home_about_path%></li>
+                <li class="uk-active uk-margin-medium-right"><%= link_to 'HOME', root_path%></li>
                 <li class="uk-active uk-margin-medium-right"><%= link_to 'FORUMS', forums_path%></li>
                 <li class="uk-active uk-margin-medium-right"><%= link_to 'POSTS', posts_path %></li>
                 <li>
@@ -52,7 +52,6 @@
             </ul>
               <% else %>
                 <li class="uk-active"><%= link_to 'HOME', root_path %></li>
-                <li class="uk-active"><%= link_to 'ABOUT', home_about_path%></li>
                 <li class="uk-active"><%= link_to 'SIGN UP', new_user_registration_path %></li>
                 <li class="uk-active"><%= link_to 'LOG IN', new_user_session_path %></li>
              <% end %>
