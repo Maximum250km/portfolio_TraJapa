@@ -20,13 +20,86 @@ body{
 	margin: 0px 15px 0px 15px;
 	background-color:＃F4F5F7
 }
-
+.top-background{
+ background: image-url('top-background.jpg');
+ height:400px;
+ width:100%;
+ background-size: cover;
+ background-position: center;
+}
 header{
 	font-size: 20px;
 }
 .navber-color{
-	background-color: skyblue !important; 
+  background: linear-gradient(to left, rgb(40, 165, 245), rgb(30, 135, 240));
 }
+.top-text{
+   padding-top: 150px;
+	 text-align: center;
+	 color:white;
+	 font-family: 'Sriracha', cursive;
+}
+.seasonal-background{
+		background: image-url('seasonal.jpg');
+		height: 280px;
+		width: 1200px;
+}
+.about-mordal-logout{
+background: image-url('about.jpg');
+	height: 200px;
+	width: 373px;
+	background-size: cover;
+  background-position: right 30% TOP 25%;
+}
+.abount-mordal{
+	background: image-url('about.jpg');
+	height: 200px;
+	width: 270px;
+	background-size: cover;
+  background-position: right 30% TOP 25%;
+}
+.top-signup{
+	background: image-url('sign_up.jpg');
+	height: 200px;
+	width: 373px;
+	background-size: cover;
+  background-position: right 30% TOP 25%;
+}
+.top-share{
+	background: image-url('post.jpg');
+	height: 200px;
+	width: 270px;
+	background-size: cover;
+  background-position: right 30% TOP 25%;
+}
+.top-index{
+	background: image-url('index.jpg');
+	height: 200px;
+	width: 270px;
+	background-size: cover;
+  background-position: right 30% TOP 25%;
+}
+.top-forum{
+	background: image-url('forum.jpg');
+	height: 200px;
+	width: 270px;
+	background-size: cover;
+  background-position: right 30% TOP 25%;
+}
+.top-login{
+	background: image-url('log_in.jpg');
+	height: 200px;
+	width: 373px;
+	background-size: cover;
+  background-position: right 30% TOP 25%;
+}
+.top-footer{
+	width:2017px;
+}
+.top-intro{
+	text-align: center;
+}
+
 .contents{
 	margin: 15px 15px;
 }
@@ -58,13 +131,6 @@ header{
 }
 .comcounts{
 	font-size:18px;
-}
-.top-background{
- background: image-url('top-background.jpg');
- height:400px;
- width:100%;
- background-size: cover;
- background-position: center;
 }
 .icon{
 	border-radius:60px;
@@ -117,4 +183,12 @@ display: inline-block;
 }
 .rank-footer{
 	float: left;
+}
+.footer{
+	width: 100%;
+	height:100px;
+}
+.footer-text{
+	text-align: center;
+	padding-top: 50px;
 }

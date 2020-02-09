@@ -1,59 +1,60 @@
 <% if @post_new.errors.any? %>
-	<h3><%= @post_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
-	<ul>
-		<% @post_new.errors.full_messages.each do |message| %>
-		<li><%= message %></li>
-		<% end %>
-	</ul>
+<h3><%= @post_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
+<ul>
+	<% @post_new.errors.full_messages.each do |message| %>
+	<li><%= message %></li>
 	<% end %>
-	<div class="uk-container uk-background-muted">
-		<div class="uk-width-large uk-align-center ">
-			<%= form_for(@post) do |f| %>
-				<fieldset class="uk-fieldset uk-margin-medium ">
-					<legend class="uk-legend">Edit your post </legend>
-						<div class="field">
-							<%= f.label :title, class: "uk-label" %>
-							<%= f.text_field :title, class: "uk-input" %>
-						</div>
-						<div class="field">
-							<%= f.label :Post, class: "uk-label" %>
-							<%= f.text_area :body, class: "uk-textarea" %>
-						</div>
-							<div class="field form-group">
+</ul>
+<% end %>
+<div class="uk-container uk-background-muted">
+	<div class="uk-width-large uk-align-center ">
+		<%= form_for(@post) do |f| %>
+		<fieldset class="uk-fieldset uk-margin-medium ">
+			<legend class="uk-legend">Edit your post </legend>
+			<div class="field">
+				<%= f.label :title, class: "uk-label" %>
+				<%= f.text_field :title, class: "uk-input" %>
+			</div>
+			<div class="field">
+				<%= f.label :Post, class: "uk-label" %>
+				<%= f.text_area :body, class: "uk-textarea" %>
+			</div>
+			<div class="field form-group">
 				<%= f.label :spot, class: "uk-label" %>
 				<%= f.text_field :spot, class:"form-control", id:"search_input", placeholder:"where to visit" %>
 				<input type="hidden" id="latitude_input"/>
 				<input type="hidden" id="longitude_input"/>
 			</div>
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgcXDu9pZmm_jOHHvAgpwnyVhIw9uiqfw&libraries=places"></script>
-			<script>
-				var searchInput = 'search_input';
-				$(document).ready(function () {
-					var autocomplete;
-					autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-						types: ['geocode'],
-						componentRestrictions: {country: "jp"}
-					});
-					google.maps.event.addListener(autocomplete, 'place_changed', function () {
-						var near_place = autocomplete.getPlace();
-						document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-						document.getElementById('loc_long').value = near_place.geometry.location.lng();
-						document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
-						document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
-					});
-				});
-			</script>
-						<div class="field">
-							<%= f.label :topic, class: "uk-label" %>
-							<%= f.select :post_genre, [["Travel"],["Tips"],["Spot"]] , class: "uk-select" %>
-						</div>
-						<div class="field">
-							<%= f.label :image %>
-							<%= f.attachment_field :post_image, class: "post_image" %>
-						</div>
-							<%= f.submit %>
-				</fieldset>
-			<% end %>
-				<%= link_to "Back to index", posts_path, class: "back" %>
-		</div>
-  </div>
+			<div class="field">
+				<%= f.label :topic, class: "uk-label" %>
+				<%= f.select :post_genre, [["Travel"],["Tips"],["Spot"]] , class: "uk-select" %>
+			</div>
+			<div class="field">
+				<%= f.label :image %>
+				<%= f.attachment_field :post_image, class: "post_image" %>
+			</div>
+			<%= f.submit %>
+		</fieldset>
+		<% end %>
+		<%= link_to "Back to index", posts_path, class: "back" %>
+	</div>
+</div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgcXDu9pZmm_jOHHvAgpwnyVhIw9uiqfw&libraries=places"></script>
+<script>
+	var searchInput = 'search_input';
+	$(document).ready(function () {
+		var autocomplete;
+		autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+			types: ['geocode'],
+			componentRestrictions: {country: "jp"}
+		});
+		google.maps.event.addListener(autocomplete, 'place_changed', function () {
+			var near_place = autocomplete.getPlace();
+			document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+			document.getElementById('loc_long').value = near_place.geometry.location.lng();
+			document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+			document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+		});
+	});
+</script>
