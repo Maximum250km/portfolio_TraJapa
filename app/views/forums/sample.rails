@@ -1,5 +1,6 @@
+<!--本ページはforum/indexをSPA化しようと試みた際に試したコードやテストの置き場  -->
 	<%= form_with(model:@forum_comment)url:forum_forum_comments_path(forum.id) do |forum| %>
-
+============================================================================================
 	class ForumCommentsController < ApplicationController
 	def create
 		forum_reply = Folum.find(params[:id])
@@ -13,20 +14,10 @@ private
   def forum_comment_params
     params.require(:forum_comment).permit(:user_id, :forum_id, :comments)
   end
-
 end
 
-
-
-
-
 ---------------------------------------------
-
-
-
  about edit forum
-
-
  <% if content.user_id == current_user.id %>
 				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
 					<span uk-icon="icon: pencil"></span><%= link_to "Edit",edit_forum_path(content.id) %>
@@ -37,10 +28,7 @@ end
 					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(content.user_id) %>
 				</div>
 				<% end %>
-
-
 ------------------------------------------------------------
-
 <!-- 共通テンプレート　変数名が悪い例として戒め　-->
 						<% if content.user_id == current_user.id %>
 				<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right" hidden>
@@ -83,16 +71,13 @@ end
 					<span uk-icon="icon: pencil"></span><%= link_to "Writer's Profile",user_path(content.user_id) %>
 				</div>
 				<% end %>
-       
-        ---------------------------------------------------------------------
-         <%= render 'forums/forum_edit', forum: forum %>
-         <!-- 共通テンプレートへの利育 -->
-         --------------------------------------------------
-         		<%= f.hidden_field :id, :value => forum.id  %>
-         		<!--  非同期を試みた際、共通テンプレート部分いて使用。　 -->
-
-         		------------------------------------------------------
-
+	---------------------------------------------------------------------
+   <%= render 'forums/forum_edit', forum: forum %>
+    <!-- 共通テンプレートへの利育 -->
+   --------------------------------------------------
+   <%= f.hidden_field :id, :value => forum.id  %>
+    <!--  非同期を試みた際、共通テンプレート部分いて使用。　 -->
+    ------------------------------------------------------
 <!--  共通テンプレート部分コード　変数目がcontentからforumに切り替わっている -->
 <% if forum.user_id == current_user.id %>
 <%= form_with model:forum do |f| %>
@@ -138,8 +123,6 @@ def update
       render :index
      end
   end
-
-
   ===================================================
   <% if @forum_new.errors.any? %>
 <h3><%= @forum_new.errors.count %>error occurrence</h3>

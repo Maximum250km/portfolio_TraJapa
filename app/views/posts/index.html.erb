@@ -20,14 +20,14 @@
 							<span class="rank-footer"><%= attachment_image_tag(p.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %>
 							</span>
 							<div class= "rank-footer uk-margin-small-left">
-								Posted by <%= p.user.account_name %>
-								<% end %>
+							Posted by <%= p.user.account_name %>
+							<% end %>
 								<br />
 								<%= p.favorites.count %> People upvoted!
 							</div>
 						</div>
 					</li>
-					<% end %>
+				<% end %>
 				</ul>
 				<h4 class="uk-text-center "> latest Post </h4>
 				<ul class="bxslider uk-margin-remove">
@@ -39,19 +39,19 @@
 								<p class="uk-text-lead">Title: <%= link_to n.title, n, class: "post_#{n.id}" %></p>
 							</div>
 							<div class="uk-width-large uk-margin-medium-top ranking-footer ">
-								<%= link_to(n.user) do %>
-								<span class="rank-footer"><%= attachment_image_tag(n.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %></span>
-								<div class= "rank-footer uk-margin-small-left">
-									Posted by <%= n.user.account_name %>
-									<% end %>
-									<br />
-									<%= n.created_at.strftime('%Y/%m/%d %H:%M') %>
-								</div>
+							<%= link_to(n.user) do %>
+							<span class="rank-footer"><%= attachment_image_tag(n.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %></span>
+							<div class= "rank-footer uk-margin-small-left">
+								Posted by <%= n.user.account_name %>
+								<% end %>
+								<br />
+								<%= n.created_at.strftime('%Y/%m/%d %H:%M') %>
 							</div>
-						</li>
-						<% end %>
-					</ul>
-				</div>
-			</div>
+						</div>
+					</li>
+				<% end %>
+			</ul>
 		</div>
+	</div>
+</div>
 

@@ -1,12 +1,14 @@
+<!-- validation & error massage setting -->
+<% unless @forum_new.nil? %>
 <% if @forum_new.errors.any? %>
-<h3><%= @forum_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
+<h3><%= @forum_new.errors.count %>error occurrence</h3>
 <ul>
 	<% @forum_new.errors.full_messages.each do |message| %>
 	<li><%= message %></li>
 	<% end %>
 </ul>
 <% end %>
-
+<% end %>
 <% unless @forums_update.nil? %>
 <% if @forums_update.errors.any? %>
 <h3><%= @forums_update.errors.count %>error occurrence</h3>
@@ -18,17 +20,30 @@
 <% end %>
 <% end %>
 
+<% unless @reply.nil? %>
+<% if @reply.errors.any? %>
+<h3><%= @reply.errors.count %>error occurrence</h3>
+<ul>
+	<% @reply.errors.full_messages.each do |message| %>
+	<li><%= message %></li>
+	<% end %>
+</ul>
+<% end %>
+<% end %>
+
+
 <div class="uk-container uk-container-center  uk-container-small uk-margin-medium-top">
 	<div class="uk-container-width uk-width-auto uk-align-center">
 		<fieldset class="uk-fieldset">
 			<legend class="uk-legend uk-text-center uk-text-primary">Get answers & discussion from real travelers</legend>
+
 			<%= form_with model:@forum_new, local: true do |forum| %>
 			<div class="field">
-				<%= forum.label :title, class: "uk-label" %>
+				<%= forum.label :Title, class: "uk-label" %>
 				<%= forum.text_field :forum_title, class: "uk-input" %>
 			</div>
 			<div class="field">
-				<%= forum.label :qustion, class: "uk-label" %>
+				<%= forum.label :Qustion, class: "uk-label" %>
 				<%= forum.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
 			</div>
 			<br>
@@ -43,110 +58,104 @@
 	</div>
 </div>
 
-
-
 <% @forums.each do |forum| %>
-	<div class="uk-container-center uk-container forum-contents">
-		<div class="uk-cardsmall uk-card-default uk-card-hover uk-padding uk-margin-medium">
-			<p class="uk-badge genre">Topic : <%= forum.forum_genre %></p>
-			<div class="uk-card-header ">
-				<div class="uk-grid-small" uk-grid>
-					<div class="uk-width-auto">
-						<%= attachment_image_tag(forum.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+<div class="uk-container-center uk-container forum-contents">
+	<div class="uk-cardsmall uk-card-default uk-card-hover uk-padding uk-margin-medium">
+		<p class="uk-badge genre">Topic : <%= forum.forum_genre %></p>
+		<div class="uk-card-header ">
+			<div class="uk-grid-small" uk-grid>
+				<div class="uk-width-auto">
+					<%= attachment_image_tag(forum.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+				</div>
+				<span>
+					<div class="uk-card-title uk-margin-remove-bottom">
+						<%= forum.user.account_name %>
 					</div>
-					<span>
-						<div class="uk-card-title uk-margin-remove-bottom">
-							<%= forum.user.account_name %>
-						</div>
-						<p class="uk-margin-remove-top">Post at:<%= forum.created_at.strftime('%Y/%m/%d') %></p>
-					</span>
-					<h2 class="uk-text-normal"> <%= forum.forum_title %></h2>
+					<p class="uk-margin-remove-top">Post at:<%= forum.created_at.strftime('%Y/%m/%d') %></p>
+				</span>
+				<h2 class="uk-text-normal"> <%= forum.forum_title %></h2>
+			</div>
+		</div>
+		<div class="uk-card-body">
+			<p class="uk-text-normal"> Question : <%= forum.forum_body %></p>
+		</div>
+
+		<!--  ここからEdit　Deleteボタンに関する記述 model:forum はeach.doで回っているforumのこと -->
+		<%= form_with model:forum, local:true do |f| %>
+		<% if forum.user_id == current_user.id %>
+		<%= f.hidden_field :id, :value => forum.id  %>
+		<div id="toggle-animation" class="uk-card uk-card-primaly uk-margin-small uk-align-right">
+			<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade">
+				<span uk-icon="icon: pencil"></span>EDIT
+			</button>
+			<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
+				<div class="uk-form-horizontal uk-margin-large">
+					<div class="uk-margin">
+						<%= f.label :Title, class: "uk-label" %>
+						<%= f.text_field :forum_title, class: "uk-input form-horizontal-text" %>
+					</div>
+					<div class="uk-margin">
+						<%= f.label :Question, class: "uk-label" %>
+						<%= f.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
+					</div>
+					<div class="uk-margin">
+						<%= f.label :Theme, class: "uk-label" %>
+						<%= f.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] , class: "uk-select" %>
+					</div>
+					<%= f.submit class: "uk-button uk-button-secondary uk-button-large uk-margin-small-top" %>
 				</div>
 			</div>
-			<div class="uk-card-body">
-				<p class="uk-text-normal"> Question : <%= forum.forum_body %></p>
-			</div>
+			<span uk-icon="icon: trash"></span>
+			<%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
+		</div>
+		<% else %>
+		<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right">
+			<span uk-icon="icon: users"></span>
+			<%= link_to "Writer's Profile",user_path(forum.user_id) %>
+		</div>
+		<% end %>
+		<% end %>
+		<!-- ここまで -->
 
-		<!--  ここからEdit　Deleteボタンに関する記述  -->
-				<%= form_with model:forum, local:true do |f| %>
-					<% if forum.user_id == current_user.id %>
-						<%= f.hidden_field :id, :value => forum.id  %>
-							<div id="toggle-animation" class="uk-card uk-card-primaly uk-margin-small uk-align-right">
-								<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade">
-									<span uk-icon="icon: pencil"></span>EDIT
-								</button>
-								<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
-									<div class="uk-form-horizontal uk-margin-large">
-										<div class="uk-margin">
-										<label class="uk-form-label">Title</label>
-											<%= f.text_field :forum_title, class: "uk-input form-horizontal-text" %>
-										</div>
-										<div class="uk-margin">
-											<label class="uk-form-label">
-												Question
-											</label>
-											<%= f.text_area :forum_body,  size: "13x5", class: "uk-textarea"%>
-										</div>
-										<div class="uk-margin">
-											<label class="uk-form-label">
-											Theme
-											</label>
-											<%= f.select :forum_genre, [["Travel"],["Tips"],["Spot"],["Trouble"]] , class: "uk-select" %>
-										</div>
-											<%= f.submit class: "uk-button uk-button-secondary uk-button-large uk-margin-small-top" %>
-									</div>
-								</div>
+		<div class="forum-favorites uk-card-footer">
+			<p id="forum_like<%= forum.id %>">
+				<%= render 'forums/forum_favorites', forum: forum %>
+			</p>
+		</div>
+		<div class="reply">
+			<h3>Reply</h3>
+			<% forum.forum_replies.each do |reply| %>
+			<div class="reply-body">
+				<ul class="uk-comment-list uk-margin-medium uk-padding-small vertical-line ">
+					<li>
+						<div class="uk-comment-header uk-text-bold uk-text-large  	">
+							<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+							<%= reply.user.account_name %>
+							<%= reply.created_at.strftime('%Y/%m/%d') %>
+						</div>
+						<div class="uk-comment-body ">
+							<h4><%= reply.comments %></h4>
+							<% if reply.user == current_user %>
+							<%= link_to forum_forum_reply_path(forum.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
+							<div class="forum-footer">
 								<span uk-icon="icon: trash"></span>
-								<%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
-						  </div>
-				    <% else %>
-						<div id="toggle-animation" class=" uk-card uk-card-primaly uk-margin-small uk-align-right">
-							<span uk-icon="icon: users"></span>
-								<%= link_to "Writer's Profile",user_path(forum.user_id) %>
+							</div>
+							<% end %>
+							<% end %>
 						</div>
-						<% end %>
-				  <% end %>
-				<!-- ここまで -->
-
-				  <div class="forum-favorites uk-card-footer">
-					  <p id="forum_like<%= forum.id %>">
-							<%= render 'forums/forum_favorites', forum: forum %>
-						</p>
-					</div>
-					<div class="reply">
-						<h3>Reply</h3>
-							<% forum.forum_replies.each do |reply| %>
-								<div class="reply-body">
-									<ul class="uk-comment-list uk-margin-medium uk-padding-small  ">
-										<li>
-											<div class="uk-comment-header uk-text-bold uk-text-large vertical-line 	">
-												<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
-												<%= reply.user.account_name %>
-												<%= reply.created_at.strftime('%Y/%m/%d') %>
-											</div>
-											<div class="uk-comment-body ">
-												<h4><%= reply.comments %></h4>
-												<% if forum.user == current_user %>
-													<%= link_to forum_forum_reply_path(forum.id, reply.id),method: :delete, local: true, data: {confirm: "Do you want to delete ?"} do%>
-														<div class="forum-footer">
-															<span uk-icon="icon: trash"></span>
-														</div>
-													<% end %>
-												<% end %>
-											</div>
-										</li>
-									</ul>
-	              </div>
-						<% end %>
-					</div>
-					<div class="uk-fieldset">
-						<%= form_with model:ForumReply.new,url:forum_forum_replies_path(forum),  local: true do |form| %>
-							<%= form.text_area :comments, class: "uk-textarea uk-form-width-large" %>
-								<%= form.submit "Post Answer", class: "uk-button uk-button-default uk-button-primary uk-align-bottom uk-margin-remove-top" %>
-				</div>
+					</li>
+				</ul>
 			</div>
 			<% end %>
 		</div>
+		<div class="uk-fieldset">
+			<%= form_with model:ForumReply.new,url:forum_forum_replies_path(forum),  local: true do |form| %>
+			<%= form.text_area :comments, class: "uk-textarea uk-form-width-large" %>
+			<%= form.submit "Post Answer", class: "uk-button uk-button-default uk-button-primary uk-align-bottom uk-margin-remove-top" %>
+		</div>
 	</div>
 	<% end %>
+</div>
+</div>
+<% end %>
 

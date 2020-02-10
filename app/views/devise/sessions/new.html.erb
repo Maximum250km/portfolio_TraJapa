@@ -1,6 +1,6 @@
 <div class="uk-container uk-width-large uk-background-muted uk-margin-medium">
-	 <fieldset class="uk-fieldset uk-margin-medium">
-	 	<legend class="uk-legend uk-text-center uk-text-primary">Log In</legend>
+	<fieldset class="uk-fieldset uk-margin-medium">
+		<legend class="uk-legend uk-text-center uk-text-primary">Log In</legend>
 			<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 	 			<div class="field">
 	 				<%= f.label :Email, class:"uk-label" %><br />
@@ -20,9 +20,7 @@
 	 			<%= f.submit "Log in" %>
 	 		</div>
 	 		<% end %>
-	 </fieldset>
-	  <%= render "devise/shared/links" %>
-
-	</div>
-
+	</fieldset>
+</div>
+  <%= render "devise/shared/links" %>
 

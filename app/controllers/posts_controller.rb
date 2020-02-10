@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
 
-
   def new
     @post_new = Post.new
     @user = current_user
@@ -22,7 +21,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post_new = Post.new
     if current_user != @post.user
-      redirect_to posts_path
+       redirect_to posts_path
     end
   end
 
@@ -38,27 +37,26 @@ class PostsController < ApplicationController
    end
  end
 
- def update
-  @post = Post.find(params[:id])
-  if @post.update(post_params)
-    redirect_to post_path(@post),notice: "update completed !"
-  else
-    @post_new = @post
+  def update
     @post = Post.find(params[:id])
-    render :edit
+    if @post.update(post_params)
+      redirect_to post_path(@post),notice: "update completed !"
+    else
+      @post_new = @post
+      @post = Post.find(params[:id])
+      render :edit
+    end
   end
-end
 
-def destroy
-  post = Post.find(params[:id])
-  post.destroy
-  redirect_to posts_path, notice: "your post was deleted"
-end
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to posts_path, notice: "your post was deleted"
+  end
 
 
-private
-def post_params
-  params.require(:post).permit(:title, :body, :post_image, :post_genre, :spot)
-end
-
+  private
+  def post_params
+    params.require(:post).permit(:title, :body, :post_image, :post_genre, :spot)
+  end
 end

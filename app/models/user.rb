@@ -3,7 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
   has_many :posts
   has_many :forums
   has_many :favorites
@@ -23,7 +22,7 @@ class User < ApplicationRecord
 
 
   def followed_by?(user)
-  passive_relationships.find_by(following_id: user.id).present?
+    passive_relationships.find_by(following_id: user.id).present?
   end
 
 end
