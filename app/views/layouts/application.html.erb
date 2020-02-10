@@ -1,70 +1,92 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-    <title>TraJapa !!</title>
-      <%= csrf_meta_tags %>
-      <%= csp_meta_tag %>
-      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-       <meta name="viewport" content="width=device-width,initial-scale=1.0">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/css/uikit.min.css" />
-      <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-      <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit-icons.min.js"></script>
-       <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<html>
+<head>
+  <title>TraJapa !!</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/css/uikit.min.css" />
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit-icons.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Sriracha&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="uk-hidden@m">
+<nav class="uk-navbar-container " uk-navbar>
+    <div class="uk-navbar-left">
 
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">Active</a></li>
+            <li>
+                <a href="#">Parent</a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a href="#">Item</a></li>
+        </ul>
 
-
-    </head>
-    <body>
-    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
-      <nav class=" navber-color uk-navbar-container uk-navbar-transparent header-font " uk-navbar>
-        <div class="uk-navbar-left uk-margin-medium-left logo-background">
-          <ul class="uk-navbar-nav ">
-            <%= link_to posts_path do%>
-            <%=image_tag 'logo.png', :size =>'100x60'%>
-            <% end %>
-          </ul>
-        </div>
-          <div class="uk-navbar-right ">
-            <ul class="uk-navbar-nav uk-text-bold uk-text-emphasis uk-margin-medium-right">
-              <% if user_signed_in? %>
-                <li class="uk-active uk-margin-medium-right"><%= link_to 'HOME', root_path%></li>
-                <li class="uk-active uk-margin-medium-right"><%= link_to 'FORUMS', forums_path%></li>
-                <li class="uk-active uk-margin-medium-right"><%= link_to 'POSTS', posts_path %></li>
-                <li>
-                  <a href="#">
-                    <%= attachment_image_tag(current_user, :profile_image, :fill, 75, 75, fallback: "human.png" ,class: "icon") %>
-                  </a>
-                   <div class="uk-navbar-dropdown">
-                     <ul class="uk-nav uk-navbar-dropdown-nav">
-                       <li class="uk-nav-header">Account Name</li>
-                       <li><%= current_user.account_name %></li>
-                       <li class="uk-active"></li>
-                       <li><%= link_to "View My Profile", user_path(current_user.id) %></li>
-                       <li><%= link_to "Post Your Trip", new_post_path %></li>
-                       <li><%= link_to 'LOG OUT', destroy_user_session_path, method: :delete %></li>
-                     </ul>
-                   </div>
-                 </li>
-            </ul>
-              <% else %>
-                <li class="uk-active"><%= link_to 'HOME', root_path %></li>
-                <li class="uk-active"><%= link_to 'SIGN UP', new_user_registration_path %></li>
-                <li class="uk-active"><%= link_to 'LOG IN', new_user_session_path %></li>
-             <% end %>
-            </ul>
-          </div>
-        </nav>
-      </div>
     </div>
-   <%= yield %>
-   <footer>
-    <div class="footer">
-      <p class="footer-text">@Trajapa</p>
-   </footer>
-  </body>
+</nav>
+</div>
+
+
+ <div class="uk-visible@m">
+  <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
+    <nav class=" navber-color uk-navbar-container uk-navbar-transparent header-font " uk-navbar>
+      <div class="uk-navbar-left uk-margin-medium-left logo-background">
+        <ul class="uk-navbar-nav ">
+          <%= link_to posts_path do%>
+          <%=image_tag 'logo.png', :size =>'100x60'%>
+          <% end %>
+        </ul>
+      </div>
+      <div class="uk-navbar-right ">
+        <ul class="uk-navbar-nav uk-text-bold uk-text-emphasis uk-margin-medium-right">
+          <% if user_signed_in? %>
+          <li class="uk-active uk-margin-medium-right"><%= link_to 'HOME', root_path%></li>
+          <li class="uk-active uk-margin-medium-right"><%= link_to 'FORUMS', forums_path%></li>
+          <li class="uk-active uk-margin-medium-right"><%= link_to 'POSTS', posts_path %></li>
+          <li>
+            <a href="#">
+              <%= attachment_image_tag(current_user, :profile_image, :fill, 75, 75, fallback: "human.png" ,class: "icon") %>
+            </a>
+            <div class="uk-navbar-dropdown">
+             <ul class="uk-nav uk-navbar-dropdown-nav">
+               <li class="uk-nav-header">Account Name</li>
+               <li><%= current_user.account_name %></li>
+               <li class="uk-active"></li>
+               <li><%= link_to "View My Profile", user_path(current_user.id) %></li>
+               <li><%= link_to "Post Your Trip", new_post_path %></li>
+               <li><%= link_to 'LOG OUT', destroy_user_session_path, method: :delete %></li>
+             </ul>
+           </div>
+         </li>
+       </ul>
+       <% else %>
+       <li class="uk-active"><%= link_to 'HOME', root_path %></li>
+       <li class="uk-active"><%= link_to 'SIGN UP', new_user_registration_path %></li>
+       <li class="uk-active"><%= link_to 'LOG IN', new_user_session_path %></li>
+       <% end %>
+     </ul>
+   </div>
+ </nav>
+</div>
+</div>
+<%= yield %>
+<footer>
+  <div class="footer">
+    <p class="footer-text">@Trajapa</p>
+  </footer>
+</body>
 </html>
