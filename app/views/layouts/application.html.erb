@@ -18,30 +18,34 @@
 </head>
 <body>
   <div class="uk-hidden@m">
-<nav class="uk-navbar-container " uk-navbar>
-    <div class="uk-navbar-left">
-
+    <nav class="uk-navbar-container " uk-navbar>
+      <div class="uk-navbar-center">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="#">Active</a></li>
-            <li>
-                <a href="#">Parent</a>
-                <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li class="uk-active"><a href="#">Active</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li><a href="#">Item</a></li>
-        </ul>
-
+         <% if user_signed_in? %>
+         <li class="uk-active "><%= link_to 'HOME', root_path%></li>
+         <li class="uk-active "><%= link_to 'FORUMS', forums_path%></li>
+         <li class="uk-active "><%= link_to 'POSTS', posts_path %></li>
+         <li>
+          <a href="#">Account</a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li class="uk-active"><%= current_user.account_name %></li>
+              <li><%= link_to "View My Profile", user_path(current_user.id) %></li>
+              <li><%= link_to "Post Your Trip", new_post_path %></li>
+              <li><%= link_to 'LOG OUT', destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </div>
+        </li>
+        <% else %>
+        <li class="uk-active"><%= link_to 'HOME', root_path %></li>
+        <li class="uk-active"><%= link_to 'SIGN UP', new_user_registration_path %></li>
+        <li class="uk-active"><%= link_to 'LOG IN', new_user_session_path %></li>
+        <% end %>
+      </ul>
     </div>
-</nav>
+  </nav>
 </div>
-
-
- <div class="uk-visible@m">
+<div class="uk-visible@m">
   <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
     <nav class=" navber-color uk-navbar-container uk-navbar-transparent header-font " uk-navbar>
       <div class="uk-navbar-left uk-margin-medium-left logo-background">
