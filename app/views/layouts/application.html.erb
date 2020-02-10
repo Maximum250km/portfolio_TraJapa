@@ -6,6 +6,7 @@
       <%= csp_meta_tag %>
       <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+       <meta name="viewport" content="width=device-width,initial-scale=1.0">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/css/uikit.min.css" />
       <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
       <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>
@@ -13,7 +14,7 @@
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Sriracha&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Sriracha&display=swap" rel="stylesheet">
 
 
 
@@ -21,10 +22,10 @@
     <body>
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
       <nav class=" navber-color uk-navbar-container uk-navbar-transparent header-font " uk-navbar>
-        <div class="uk-navbar-left uk-margin-medium-left">
-          <ul class="uk-navbar-nav">
+        <div class="uk-navbar-left uk-margin-medium-left logo-background">
+          <ul class="uk-navbar-nav ">
             <%= link_to posts_path do%>
-            <%=image_tag 'icon.png', :size =>'130x90'%>
+            <%=image_tag 'logo.png', :size =>'100x60'%>
             <% end %>
           </ul>
         </div>
