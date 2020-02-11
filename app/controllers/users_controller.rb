@@ -3,8 +3,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
+    @posts = @user.posts.page(params[:page]).reverse_order
     @post = Post.find(params[:id])
+
   end
 
   def index
