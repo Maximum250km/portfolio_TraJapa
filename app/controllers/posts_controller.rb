@@ -1,17 +1,13 @@
 class PostsController < ApplicationController
 
-  def top
-  end
-
-  def about
-  end
-
   def new
     @post_new = Post.new
+    @user = current_user
   end
 
   def index
-    @posts = Post.all
+    @popular_posts = Post.find(Favorite.group(:post_id).order('count(post_id) desc').limit(5).pluck(:post_id))
+    @new_posts = Post.all.order(id: "DESC").limit(5)
     @user = current_user
   end
 
@@ -25,7 +21,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post_new = Post.new
     if current_user != @post.user
-      redirect_to posts_path
+       redirect_to posts_path
     end
   end
 
@@ -41,27 +37,26 @@ class PostsController < ApplicationController
    end
  end
 
- def update
-  @post = Post.find(params[:id])
-  if @post.update(post_params)
-    redirect_to post_path(@post),notice: "update completed !"
-  else
-    @post_new = @post
+  def update
     @post = Post.find(params[:id])
-    render :edit
+    if @post.update(post_params)
+      redirect_to post_path(@post),notice: "update completed !"
+    else
+      @post_new = @post
+      @post = Post.find(params[:id])
+      render :edit
+    end
   end
-end
 
-def destroy
-  post = Post.find(params[:id])
-  post.destroy
-  redirect_to posts_path, notice: "your post was deleted"
-end
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to posts_path, notice: "your post was deleted"
+  end
 
 
-private
-def post_params
-  params.require(:post).permit(:title, :body, :post_image, :post_genre, :spot)
-end
-
+  private
+  def post_params
+    params.require(:post).permit(:title, :body, :post_image, :post_genre, :spot)
+  end
 end

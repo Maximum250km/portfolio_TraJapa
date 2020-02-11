@@ -1,28 +1,37 @@
-<%= form_with model:@post_comment, url:post_post_comments_path(post.id) do |f| %>
-  <%= f.text_area :comments, rows:'5', class: "form-control" %>
-  <%= f.submit "Submit", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-<% end %>
-  <p>commnets</p>
-	<span><% post.post_comments.count %></span>
-	<h4 class="comment-count"><%= post.post_comments.count %>comments</h4></td>
-<table>
-	<thead>
-		<tr>
-			<th>User</th>
-			<th>commnet</th>
-			<th>Posted at</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tr>
-		<% post.post_comments.each do |c| %>
-		<td><%= c.user.account_name %></td>
-		<td><%= c.comments %></td>
-		<td><%= c.created_at.strftime('%Y/%m/%d') %></td>
-	</tr>
-	<% if c.user == current_user %>
-	<td><%= link_to "削除",  post_post_comment_path(c.post_id, c.id), method: :delete, remote: true %></td>
-</tr>
-<% end %>
-<% end %>
-</table>
+<h3 class="uk-text-bold">
+	<% post.post_comments.count %>
+	<%= post.post_comments.count %>
+	Comments
+</h3>
+<% post.post_comments.each do |c| %>
+<ul class="uk-comment-list uk-margin-medium ">
+	<li class="vertical-line">
+		<article class="uk-comment uk-visible-toggle" tabindex="-1">
+			<header class="uk-comment-header uk-position-relative">
+				<div class="uk-grid-medium uk-flex-middle uk-text-center" uk-grid>
+					<div class="uk-width-auto">
+						<span><%= attachment_image_tag(@post.user, :profile_image, :fill, 75, 75, fallback: "no-image-mini.jpg",class: "icon") %></span>
+						<div class="cooment-footer uk-float-right uk-margin-left">
+						<p><%= c.user.account_name %></p>
+							<p class="uk-text-left">
+								<%= c.created_at.strftime('%Y/%m/%d') %>
+				    	</p>
+						</div>
+						</div>
+					</div>
+				</header>
+				<div class="uk-comment-body uk-position-small">
+					<p class="uk-text-large"><%= c.comments %></p>
+					<% if c.user == current_user %>
+					<%= link_to "delete my comment",  post_post_comment_path(c.post_id, c.id), method: :delete, remote: true %>
+					<% end %>
+				</div>
+			</article>
+		</li>
+	</ul>
+	<% end %>
+
+	<%= form_with model:@post_comment, url:post_post_comments_path(post.id) do |f| %>
+	<%= f.text_area :comments, rows:'5', class: "form-control" %>
+	<%= f.submit "Submit", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+	<% end %>

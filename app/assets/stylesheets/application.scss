@@ -1,92 +1,212 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
- @import "bootstrap-sprockets";
- @import "bootstrap";
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+* vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*= require_tree .
+*= require_self
+*/
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 body{
-	margin: 0px 15px 0px 15px;
+margin: 0px 15px 0px 15px;
+background-color:#F4F5F7;
 }
-
+.top-background{
+background: image-url('top-background.jpg');
+height:400px;
+width:100%;
+background-size: cover;
+background-position: center;
+}
 header{
-	font-size: 20px;
+font-size: 20px;
+}
+.text-white{
+	color: #ffff !important;
+	font-size:20px;
+}
+.navber-color{
+background: linear-gradient(to left, rgb(40, 165, 245), rgb(30, 135, 240));
+}
+.uk-navbar-nav > li > a {
+color: #fff !important;
+font-size: 16px;
+}
+.top-text{
+padding-top: 150px;
+text-align: center;
+color:white;
+font-family: 'Sriracha', cursive;
+}
+.quotes{
+font-size:30px;
+font-family: 'Roboto', sans-serif;
+}
+.seasonal-text{
+text-align: right;
+margin-top: 120px;
+margin-right: 20px;
+font-size:30px;
+font-family: 'Roboto', sans-serif;
+}
+.seasonal-background{
+background: image-url('seasonal.jpg');
+height: 280px;
+width: 100%;
+}
+.about-mordal-logout{
+background: image-url('about.jpg');
+height: 200px;
+width: 100%;
+background-size: cover;
+background-position: right 30% TOP 25%;
+}
+.abount-mordal{
+background: image-url('about.jpg');
+height: 200px;
+width: 100%;
+background-size: cover;
+background-position: right 30% TOP 25%;
+}
+.top-signup{
+background: image-url('sign_up.jpg');
+height: 200px;
+width: 100%;
+background-size: cover;
+background-position: right 30% TOP 25%;
+}
+.top-share{
+background: image-url('post.jpg');
+height: 200px;
+width: 100%;
+background-size: cover;
+background-position: right 30% TOP 25%;
+}
+.top-index{
+background: image-url('index.jpg');
+height: 200px;
+width: 100%;
+background-size: cover;
+background-position: right 30% TOP 25%;
+}
+.top-forum{
+background: image-url('forum.jpg');
+height: 200px;
+width: 100%;
+background-size: cover;
+background-position: right 30% TOP 25%;
+}
+.top-login{
+background: image-url('log_in.jpg');
+height: 200px;
+width: 100%px;
+background-size: cover;
+background-position: right 30% TOP 25%;
+}
+.top-footer{
+width:2017px;
+}
+.top-intro{
+text-align: center;
 }
 .contents{
-	margin: 15px 15px;
+margin: 15px 15px;
 }
 .clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
+content: "";
+display: block;
+clear: both;
 }
 .profile{
-	width: 250px;
+width: 250px;
 }
 .form{
-     width:250px;
-	 }
-
+width:250px;
+}
+.post-title{
+float:left;
+}
 
 .actions {
-	margin-top:10px;
+margin-top:10px;
 }
 
 .notice{
-	backgroud-color:blue;
+backgroud-color:blue;
 }
 
 .comments{
-	float:left;
+float:left;
 }
 .comcounts{
-	font-size:18px;
-}
-.top-background{
- background: image-url('top-background.jpg');
- height:400px;
- width:100%;
- background-size: cover;
- background-position: center;
+font-size:18px;
 }
 .icon{
-	border-radius:60px;
+border-radius:60px;
 }
 .sidebar{
-	height:200px;
+height:200px;
 }
 .inline{
 display: inline-block;
 }
 .forum-contents{
-	margin: 20px;
-	padding: 30px;
+margin: 20px;
+padding: 30px;
 }
 .genre{
-	float: right;
+float: right;
 }
 .card-header{
-	display: inline-block;
+display: inline-block;
 }
 .uk-caed-body{
-	margin-right: 30px;
+margin-right: 30px;
+}
+.vertical-line{
+border-left: thick solid blue;
+padding-left: 30px;
+margin-right: 20px;
 }
 
 .forum-footer{
-	float:left;
+float:left;
 }
-a:link, a:visited, a:hover, a:active {
-  color: blue;
+.bx-wrapper {
+background-color: transparent;
+margin: 0px auto;
+border: none;
+box-shadow: none;
 }
-
+.bx-wrapper img{
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+border: 0;
+}
+.uk-panel-footer{
+display:inline-block;
+}
+.ranking-footer{
+display: inline-block;
+}
+.rank-footer{
+float: left;
+}
+.footer{
+width: 100%;
+height:100px;
+}
+.footer-text{
+text-align: center;
+padding-top: 50px;
+}

@@ -1,83 +1,97 @@
-<div class="container">
-	<div class="row">
-		<div class="col-xs-3">
-			<h2>User info</h2>
+<div class="uk-container ">
+	<div class="uk-grid uk-margin-large-top">
+		<div class="uk-width-1-1 uk-width-1-3@m ">
+				<div class="uk-container style="z-index: 980;" uk-sticky="media: @m; offset: 100; bottom: #offset">
 			<%= render 'users/profile', user: @user %>
 		</div>
-		<div class="col-xs-9">
-			<table class="table">
-				<tr>
-					<thead>
-						<th></th>
-						<th></th>
-					</thead>
-					<td>
-						<%= link_to (@post.user) do %>
-						<%= attachment_image_tag(@post.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg" ,class: "icon") %><br>
-						<%= @post.user.account_name %>
-						<% end %>
-					</td>
-					<td><%= @post.title %></td>
-					<td><%= @post.body %></td>
-					<td><%= @post.post_genre %></td>
-					<td id="like_<%= @post.id %>">
-						<%= render 'posts/favorite', post:@post %>
-					</td>
-					<td><%= attachment_image_tag(@post, :post_image, :fill, 100, 100) %><br>
-						<% if @post.user_id == current_user.id %>
-						<td><%= link_to "Edit",edit_post_path(@post), class: "btn-sm btn-success edit_post_#{@post.id}" %></td>
-						<td><%= link_to "Destroy",post_path(@post), method: :delete, data: {confirm: "Do you want to delete ?"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %></td>
-						<% end %>
-					</tr>
+		  </div>
+			<div class="uk-width-1-1 uk-width-2-3@m uk-card uk-card-default uk-card-hover">
+				<div class="uk-card-header">
+					<div class="uk-grid-small uk-flex-middle" uk-grid>
+						<div class="uk-width-auto">
+							<%= link_to (@post.user) do %>
+							<%= attachment_image_tag(@post.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg",class: "icon") %>
+						</div>
+						<div class="uk-card-title uk-text-large uk-text-bold  ">
+							<%= @post.user.account_name %>
+							<% end %>
+							Pulished a post
+							<h4 class="uk-margin-remove-top uk-text-bold">
+								<%= @post.title %>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="uk-card-body uk-margin uk-padding">
+					<h2><%= @post.body%></h2>
+						<%= attachment_image_tag(@post, :post_image, :fill, 600, 400) %><br>
+						  <% unless @post.spot.empty? %>
+	            <div class="map-area">
+							<button href="#toggle-animation" class="uk-button uk-button-default uk-align-right uk-margin-small-top" type="button" uk-toggle="target: #toggle-animation; animation: uk-animation-slide-bottom-medium">
+							<span uk-icon="icon: location"></span>Open Map
+							</button>
+							<div id="toggle-animation"class="uk-align-center uk-text-center uk-width-auto" hidden>
+							<p id="spot" hidden>	<%= @post.spot %></p><br>
+							<div id='gmap' style="height:400px;width:600px"></div>
+									</div>
+								</div>
+								<% end %>
+									 <!-- 地図を表示する領域 -->
+							<script>
+								function initMap() {
+	      	//地図を表示する領域の div 要素のオブジェクトを変数に代入
+	      	var target = document.getElementById('gmap');
+	      	//HTMLに記載されている住所の取得
+	      	var address = document.getElementById("spot").textContent;
+	     		//ジオコーディングのインスタンスの生成
+	     		var geocoder = new google.maps.Geocoder();
+	      //geocoder.geocode() にアドレスを渡して、コールバック関数を記述して処理
+	      geocoder.geocode({ address: address }, function(results, status){
+	      //ステータスが OK で results[0] が存在すれば、地図を生成
+	      if (status === 'OK' && results[0]){
+	      	var map = new google.maps.Map(target, {
+	            	//results[0].geometry.location に緯度・経度のオブジェクトが入っている
+	            	center: results[0].geometry.location,
+	            	zoom: 17
+	            });
+	      	var marker = new google.maps.Marker({
+	      		position: results[0].geometry.location,
+	      		map: map,
+	      		animation: google.maps.Animation.DROP
+	      	});
+	      }else{
+	         //ステータスが OK 以外の場合や results[0] が存在しなければ、アラートを表示して処理を中断
+	         //下の記述でエラーの出し方を定義している。 今回は非表示にするためコメントアウト
+	         //alert('失敗しました。理由: ' + status);
+	         //return;
+	       }
+	     });
+	    }
+	            </script>
+	  					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkxS_JuEboKWjO2QnLTSI9CGy1X-KvJf8&callback=initMap&language=en" async defer></script>
+	  <!-- &language=enで表示言語を英語に固定  -->
 
-				</table>
+							<div class="uk-card-badge uk-label">
+								<%= @post.post_genre %>
+							</div>
+				</div>
+				<p id="like_<%= @post.id %>">
+					<%= render 'posts/favorite', post:@post %>
+				</p>
+				<% if @post.user_id == current_user.id %>
+					<%= link_to "Edit",edit_post_path(@post), class: "btn-sm btn-success edit_post_#{@post.id}" %>
+					<%= link_to "Destroy",post_path(@post), method: :delete, data: {confirm: "Do you want to delete ?"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %>
+						<div class="uk-text uk-align-left uk-margin-remove-bottom"> Posted at 
+							<%= @post.created_at.strftime('%Y/%m/%d') %>
+						</div>
+				<% end %>
+				<div class="uk-card-footer uk-margin-medium">
+					<div id="comments">
+						<%= render 'posts/commentform', post: @post %>
+					</div>
+				</div>
 			</div>
-			<tr>
-				<p id="spot"><%= @post.spot %></p>
-			</tr>
-		</tbody>
-
-  
-		<div id='gmap' style="height:400px;width:600px"></div> <!-- 地図を表示する領域 -->
-
-		<script>
-			function initMap() {
-      //地図を表示する領域の div 要素のオブジェクトを変数に代入
-      var target = document.getElementById('gmap');
-      //HTMLに記載されている住所の取得
-      var address = document.getElementById("spot").textContent;
-     //ジオコーディングのインスタンスの生成
-     var geocoder = new google.maps.Geocoder();
-      //geocoder.geocode() にアドレスを渡して、コールバック関数を記述して処理
-      geocoder.geocode({ address: address }, function(results, status){
-      //ステータスが OK で results[0] が存在すれば、地図を生成
-      if (status === 'OK' && results[0]){
-      	var map = new google.maps.Map(target, {
-            //results[0].geometry.location に緯度・経度のオブジェクトが入っている
-            center: results[0].geometry.location,
-            zoom: 17
-          });
-      	var marker = new google.maps.Marker({
-      		position: results[0].geometry.location,
-      		map: map,
-      		animation: google.maps.Animation.DROP
-      	});
-      }else{
-         //ステータスが OK 以外の場合や results[0] が存在しなければ、アラートを表示して処理を中断
-         //下の記述でエラーの出し方を定義している。 今回は非表示にするためコメントアウト
-         //alert('失敗しました。理由: ' + status);
-         //return;
-       }
-     });
-    }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkxS_JuEboKWjO2QnLTSI9CGy1X-KvJf8&callback=initMap&language=en" async defer></script>
-   <!-- &language=enで表示言語を英語に固定  -->
+		</div>
+	</div>
 
 
-
-  <div class="container comments clearfix">
-  	<div id="comments">
-  		<%= render 'posts/commentform', post: @post %>
-  	</div>
-  </div>

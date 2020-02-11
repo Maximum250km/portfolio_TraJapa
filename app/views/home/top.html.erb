@@ -1,0 +1,86 @@
+<div class="uk-container-expand top-background">
+	<div class="top-background-content ">
+		<h2 class="top-text">Connect with real travellers and Ready your trip !!</h2>
+	</div>
+</div>
+<div class="uk-container uk-align-center uk-margin-large-top ">
+	<div class="seasonal-background">
+		<h2 class="quotes uk-padding-small"> Spring is the time of plans and projects
+			<br> by Lev Nikolayevich Tolstoy</h2>
+			<p class="seasonal-text uk-visible@m"> Share your trip and plan in beautiful Japan in Spring</p>
+		</p>
+	</div>
+</div>
+<div class="uk-container  uk-margin-large-top uk-align-center">
+	<div class="uk-grid ">
+		<% if user_signed_in? %>
+		<div class="uk-width-1-1 uk-width-1-4@m ">
+			<div class="uk-card uk-card-small abount-mordal "></div>
+			<div class="uk-card-footer uk-card-primary">
+				<a href="#modal-overflow" uk-toggle>
+					<h4 class="top-intro" style="margin-bottom: 0;">About</h4>
+				</a>
+				<div id="modal-overflow" uk-modal>
+				<%= render 'home/about' %>
+        </div>
+			</div>
+		</div>
+		<div class="uk-width-1-1 uk-width-1-4@m ">
+			<%= link_to  user_path(current_user.id) do %>
+			<div class="uk-card uk-card-small top-share"></div>
+			<div class="uk-card-footer uk-card-primary uk-width-auto">
+				<h4 class="top-intro">Share Your Trip</h4>
+			</div>
+			<% end %>
+		</div>
+		<div class="uk-width-1-1 uk-width-1-4@m">
+			<%= link_to forums_path do %>
+			<div class="uk-card uk-card-small top-forum"></div>
+			<div class="uk-card-footer uk-card-primary uk-width-auto">
+				<h4 class="top-intro">Post Your Question</h4>
+			</div>
+			<% end %>
+		</div>
+		<div class="uk-width-1-1 uk-width-1-4@m">
+			<%= link_to posts_path do %>
+			<div class="uk-card uk-card-small top-index"></div>
+			<div class="uk-card-footer uk-card-primary uk-width-auto">
+				<h4 class="top-intro">See Post Index</h4>
+			</div>
+			<% end %>
+		</div>
+		<% else %>
+		<div class="uk-width-1-1 uk-width-1-3@m ">
+			<div class="uk-card uk-card-small about-mordal-logout ">
+			</div>
+			<div class="uk-card-footer uk-card-primary ">
+				<a href="#modal-overflow" uk-toggle>
+					<h4 class="top-intro" style="margin-bottom: 0;">About</h4>
+				</a>
+				<div id="modal-overflow" uk-modal>
+				<%= render 'home/about' %>
+        </div>
+			</div>
+		</div>
+		<div class="uk-width-1-1 uk-width-1-3@m ">
+			<%= link_to new_user_registration_path do %>
+			<div class="uk-card uk-card-small top-signup"></div>
+			<div class="uk-card-footer uk-card-primary uk-width-auto">
+				<h4 class="top-intro">Become Member !!</h4>
+			</div>
+			<% end %>
+		</div>
+		<div class="uk-width-1-1 uk-width-1-3@m ">
+			<%= link_to new_user_session_path do %>
+			<div class="uk-card uk-card-small top-login"></div>
+			<div class="uk-card-footer uk-card-primary uk-width-auto">
+				<h4 class="top-intro">Log In</h4>
+			</div>
+			<% end %>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+
+

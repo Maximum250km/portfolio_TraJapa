@@ -1,38 +1,42 @@
-<div class="profile clearfix">
-	<table class="table">
+<div class="profile  uk-width-medium uk-align-center uk-text-center uk-background ">
+	<table class="uk-table">
 		<tr><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg",class: "icon" %></tr>
-
-		<tr>
-			<th>name</th>
-			<th><%= user.account_name %></th>
-			<th><%= user.nationality %></th>
-			<div class="selected-flag" title="Afghanistan (‫افغانستان‬‎)"><div class="flag af"></div><div class="arrow"></div></div>
-		</tr>
-<th>
-		  <%= link_to follows_user_path(user.id) do%>
-				<% user.followings.count %>
-				<p><%= user.followings.count %>フォワー</p>
-				<% end %>
-			</th>
-			<th>
-				<%= link_to followers_user_path(user.id) do%>
-				<% user.followers.count %>
-				<p><%= user.followers.count %>フォロワー</p>
-				<% end %>
-			</th>
-	
-
-        <tr>
-        <% if current_user != user %>
-        <% if user.followed_by?(current_user) %>
-            <p><%=link_to "フォロー済み", user_relationships_path(user.id), method: :delete %></p>
-        <% else %>
-            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :book %></p>
-        <% end %>
-    <% end %>
-        </tr>
+		<p class="uk-text-large">
+			<%= user.account_name %>
+		</p>
+			<p>From :<%= user.nationality %></p>
+				<th>
+					<span class="uk-label uk-label-warning">
+						<%= user.followings.count %>
+						<%= link_to follows_user_path(user.id) do%>
+						Follows
+						<% end %>
+					</span>
+				</th>
+				<th>
+					<span class="uk-label uk-label-success">
+							<%= user.followers.count %><%= link_to followers_user_path(user.id) do%> 
+							Followers
+							<% end %>
+					</span>
+				</th>
 	</table>
-	<div class="">
-		<%= link_to 'edit',edit_user_path(user.id), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
-	</div>
+		<div class="follow-count">
+			<% if current_user != user %>
+				<% if user.followed_by?(current_user) %>
+					<span class="uk-label uk-label-warning">
+						<%=link_to "Unfollow this user", user_relationships_path(user.id), method: :delete %>
+					</span>
+				<% else %>
+					<span class="uk-label uk-label-warning">
+						<%=link_to "Follow this user", user_relationships_path(user.id), method: :book %>
+					</span>
+				<% end %>
+			<% end %>
+		</div>
+			<% if current_user == user %>
+		<div class="edit-button uk-margin-small-top">
+			<%= link_to 'edit',edit_user_path(user.id), class: "btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+		</div>
+			<% end %>
 </div>
