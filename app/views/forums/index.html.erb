@@ -128,10 +128,15 @@
 			<div class="reply-body">
 				<ul class="uk-comment-list uk-margin-medium uk-padding-small vertical-line ">
 					<li>
-						<div class="uk-comment-header uk-text-bold uk-text-large  	">
-							<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+						<div class="comment-area">
+						<div class="uk-width-auto uk-float-left uk-margin-right">
+						<%= attachment_image_tag(reply.user, :profile_image, :fill, 50, 50, fallback: "human.png" ,class: "icon") %>
+						</div>
+							<div class="uk-comment-header uk-text-bold uk-text-left uk-margin-small-left uk-padding-xsmall">
 							<%= reply.user.account_name %>
+							<br>
 							<%= reply.created_at.strftime('%Y/%m/%d') %>
+						  </div>
 						</div>
 						<div class="uk-comment-body ">
 							<h4><%= reply.comments %></h4>

@@ -26,6 +26,7 @@ $(document).ready(function(){
     maxSlides: 1,         // 一度に表示させる最大数
     slideWidth: 600,      // 各スライドの幅
   randomStart: false,    // 最初に表示するスライドをランダムに設定
-    autoHover: true       // ホバー時に自動スライドを停止
+    autoHover: true,       // ホバー時に自動スライドを停止
+    touchEnabled:false
   });
 });
