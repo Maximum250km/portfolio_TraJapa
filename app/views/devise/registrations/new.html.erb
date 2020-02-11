@@ -16,7 +16,9 @@
         <%= f.label :Nationality, class: "uk-label" %><br />
         <%= f.text_field :nationality, id:"country"%>
         <script>
+          $(document).ready(function(){
           $("#country").countrySelect();
+          });
         </script>
       </div>
       <div class="field">
