@@ -18,6 +18,10 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+ $(document).ready(function(){
+ $("#country").countrySelect();
+ });
+
 $(document).ready(function(){
   $('.bxslider').bxSlider({
     auto: false,           // 自動スライド
