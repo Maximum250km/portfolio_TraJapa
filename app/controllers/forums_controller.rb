@@ -6,6 +6,7 @@ class ForumsController < ApplicationController
 		@forums = Forum.all
 		@forum_replies = ForumReply.all
 		@user = current_user
+		@forum_pages = Forum.page(params[:page]).reverse_order
 	end
 
 	def create

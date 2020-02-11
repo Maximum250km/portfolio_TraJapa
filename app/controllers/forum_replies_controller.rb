@@ -5,6 +5,7 @@ class ForumRepliesController < ApplicationController
 		@reply = ForumReply.new(forum_reply_params)
 		@reply.user_id = current_user.id
 		@reply.forum_id = params[:forum_id]
+		#@forum_pages = Forum.page(params[:page]).reverse_order
 		if @reply.save
 		  redirect_to forums_path
 		else

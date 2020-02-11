@@ -30,8 +30,16 @@ background-position: center;
 header{
 font-size: 20px;
 }
+.text-white{
+	color: #ffff !important;
+	font-size:20px;
+}
 .navber-color{
 background: linear-gradient(to left, rgb(40, 165, 245), rgb(30, 135, 240));
+}
+.uk-navbar-nav > li > a {
+color: #fff !important;
+font-size: 16px;
 }
 .top-text{
 padding-top: 150px;
@@ -110,7 +118,6 @@ width:2017px;
 .top-intro{
 text-align: center;
 }
-
 .contents{
 margin: 15px 15px;
 }
