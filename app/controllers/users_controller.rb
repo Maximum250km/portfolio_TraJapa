@@ -25,7 +25,7 @@ def follows
     user = User.find(params[:id])
     @users = user.followings
     @user = User.find(params[:id])
-    @post = Post.find(params[:id])
+    #@post = Post.find(params[:id])
 
   end
 
@@ -33,7 +33,7 @@ def follows
     user = User.find(params[:id])
     @users = user.followers
     @user = User.find(params[:id])
-    @post = Post.find(params[:id])
+    #@post = Post.find(params[:id])
   end
 
 
