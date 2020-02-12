@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_09_094838) do
+ActiveRecord::Schema.define(version: 2020_01_25_074340) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
@@ -19,24 +19,10 @@ ActiveRecord::Schema.define(version: 2020_02_09_094838) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "forum_favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "forum_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "forum_replies", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "forum_id"
-    t.text "comments"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "forums", force: :cascade do |t|
     t.string "forum_title"
     t.text "forum_body"
+    t.string "forum_image_id"
     t.integer "forum_genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
