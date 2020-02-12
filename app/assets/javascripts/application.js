@@ -17,6 +17,7 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+jQuery.noConflict();
 
 $(document).ready(function(){
   $('.bxslider').bxSlider({
