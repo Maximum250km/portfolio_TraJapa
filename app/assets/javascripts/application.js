@@ -17,8 +17,8 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
- $(document).ready(function(){
- $("#country").countrySelect();
+Jquery(document).ready(function(){
+ Jquery("#country").countrySelect();
  });
 
 $(document).ready(function(){
