@@ -5,53 +5,56 @@
 				<%= render 'users/profile', user: @user %>
 			</div>
 		</div>
-		<div class="uk-width-1-1 uk-width-2-3@m">
-			<h4 class="uk-text-center ">Top 5 Post </h4>
-			<ul class="bxslider uk-margin-remove">
-				<% @popular_posts.each do |p| %>
-				<li>
-					<div class="uk-panel uk-padding ">
-						<div class="uk-panel uk-panel-header uk-padding-remove-top">
-							<span class="uk-badge uk-align-right"><%= p.post_genre %></span>
-							<p class="uk-text-lead">Title: <%= link_to p.title, p, class: "p_#{p.id}" %></p>
-						</div>
-						<div class="uk-width-large uk-margin-medium-top ranking-footer ">
-							<%= link_to(p.user) do %>
-							<span class="rank-footer"><%= attachment_image_tag(p.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %>
-							</span>
-							<div class= "rank-footer uk-margin-small-left">
-							Posted by <%= p.user.account_name %>
+		<div class="uk-width-1-1 uk-width-2-3@m uk-align-center">
+			<h4 class="uk-text-center"> Top 5 Post </h4>
+			<table class="uk-table uk-table-hover uk-table-middle uk-table-divider" >
+				<thead>
+					<tr>
+						<th>popular</th>
+						<th>Name</th>
+						<th>Title</th>
+						<th>Genre</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @popular_posts.each do |p| %>
+					<tr>
+						<td><%= p.favorites.count %> Favorites </td>
+						<td><%= link_to(p.user) do %>
+							<%= attachment_image_tag(p.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %>
+							<%= p.user.account_name %></td>
 							<% end %>
-								<br />
-								<%= p.favorites.count %> People upvoted!
-							</div>
-						</div>
-					</li>
-				<% end %>
-				</ul>
+							<td>Title: <%= link_to p.title, p, class: "p_#{p.id}" %></td>
+							<td class="uk-badge uk-margin-small-top"><%= p.post_genre %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
 				<h4 class="uk-text-center "> latest Post </h4>
-				<ul class="bxslider uk-margin-remove">
-					<% @new_posts.each do |n| %>
-					<li>
-						<div class="uk-panel uk-padding ">
-							<div class="uk-panel uk-panel-header uk-padding-remove-top">
-								<span class="uk-badge uk-align-right"><%= n.post_genre %></span>
-								<p class="uk-text-lead">Title: <%= link_to n.title, n, class: "post_#{n.id}" %></p>
-							</div>
-							<div class="uk-width-large uk-margin-medium-top ranking-footer ">
-							<%= link_to(n.user) do %>
-							<span class="rank-footer"><%= attachment_image_tag(n.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %></span>
-							<div class= "rank-footer uk-margin-small-left">
-								Posted by <%= n.user.account_name %>
-								<% end %>
-								<br />
-								<%= n.created_at.strftime('%Y/%m/%d %H:%M') %>
-							</div>
-						</div>
-					</li>
-				<% end %>
-			</ul>
+				<table class="uk-table uk-table-hover uk-table-middle uk-table-divider" >
+					<thead>
+						<tr>
+							<th>Latest Post</th>
+							<th>Name</th>
+							<th>Title</th>
+							<th>Genre</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @new_posts.each do |n| %>
+						<tr>
+							<td><%= n.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+							<td><%= link_to(n.user) do %>
+								<%= attachment_image_tag(n.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon") %>
+								<%= n.user.account_name %>
+								<% end %></td>
+								<td> <%= link_to n.title, n, class: "post_#{n.id}" %></td>
+								<td class="uk-badge uk-margin-small-top"> <%= n.post_genre %></td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
 

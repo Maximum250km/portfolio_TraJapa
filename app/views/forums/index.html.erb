@@ -86,7 +86,7 @@
 		<%= f.hidden_field :id, :value => forum.id  %>
 		<div id="toggle-animation" class="uk-card uk-card-primaly uk-margin-small uk-align-right">
 			<button type="button" class="uk-button uk-button-link" uk-toggle="target: #edit; animation: uk-animation-fade">
-				<span uk-icon="icon: pencil"></span>EDIT
+				<span uk-icon="icon: pencil; ratio: 2"></span>
 			</button>
 			<div id="edit" class="uk-form-horizontal uk-margin-small uk-text-lighter" hidden>
 				<div class="uk-form-horizontal uk-margin-large">
@@ -105,7 +105,7 @@
 					<%= f.submit class: "uk-button uk-button-secondary uk-button-large uk-margin-small-top" %>
 				</div>
 			</div>
-			<span uk-icon="icon: trash"></span>
+			<span uk-icon="icon: trash; ratio: 2"></span>
 			<%= link_to "DELETE",forum_path(forum.id), method: :delete, data: {confirm: "Do you want to delete ?"}%>
 		</div>
 		<% else %>
