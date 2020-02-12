@@ -1,5 +1,5 @@
 <%= form_for(@user) do |f| %>
-<!-- エラーメッセージ表示--
+<!-- エラーメッセージ表示-->
 <% if @user.errors.any? %>
 <h3><%= @user.errors.count %>error occurrence</h3><!--エラーメッセ-->
 <ul>
@@ -39,3 +39,7 @@
 		<% end %>
 	</fieldset>
 </div>
+
+<script>
+ $("#country").countrySelect();
+</script>
