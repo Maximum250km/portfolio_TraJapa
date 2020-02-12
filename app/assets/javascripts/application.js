@@ -18,9 +18,6 @@
 //= require_tree .
 
 // user new における国旗選択jquery
-$(document).ready(function(){
- $("#country").countrySelect();
- });
 
 // post/index におけるtop選択
 $(document).ready(function(){
@@ -38,3 +35,11 @@ $(document).ready(function(){
 });
 
 // post/newにおけるautocomplete
+
+$(document).ready(function(){
+
+ });
+
+$(document).ready(function(){
+
+ });
