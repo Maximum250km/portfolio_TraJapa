@@ -20,6 +20,11 @@
 jQuery.noConflict();
 
 $(document).ready(function(){
+ $("#country").countrySelect();
+ });
+
+
+$(document).ready(function(){
   $('.bxslider').bxSlider({
     auto: false,           // 自動スライド
     speed: 1000,          // スライドするスピード
