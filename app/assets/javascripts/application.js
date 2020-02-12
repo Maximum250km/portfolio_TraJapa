@@ -17,9 +17,6 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-JQuery(document).ready(function(){
- JQuery("#country").countrySelect();
- });
 
 $(document).ready(function(){
   $('.bxslider').bxSlider({
