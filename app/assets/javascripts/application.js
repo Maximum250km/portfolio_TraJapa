@@ -17,13 +17,12 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-jQuery.noConflict();
-
+// user new における国旗選択jquery
 $(document).ready(function(){
  $("#country").countrySelect();
  });
 
-
+// post/index におけるtop選択
 $(document).ready(function(){
   $('.bxslider').bxSlider({
     auto: false,           // 自動スライド
@@ -32,8 +31,10 @@ $(document).ready(function(){
     pause: 3000,          // 自動スライドの待ち時間
     maxSlides: 1,         // 一度に表示させる最大数
     slideWidth: 600,      // 各スライドの幅
-  randomStart: false,    // 最初に表示するスライドをランダムに設定
+    randomStart: false,    // 最初に表示するスライドをランダムに設定
     autoHover: true,       // ホバー時に自動スライドを停止
     touchEnabled:false
   });
 });
+
+// post/newにおけるautocomplete
