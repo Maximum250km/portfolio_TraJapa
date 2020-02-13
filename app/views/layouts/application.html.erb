@@ -23,9 +23,9 @@
 <body>
   <!-- レスポンシブ対応navbar　960px以下 -->
   <div class="uk-hidden@m">
-    <nav class="uk-navbar-container " uk-navbar>
+    <nav class=" navber-color" uk-navbar>
       <div class="uk-navbar-center">
-        <ul class="uk-navbar-nav">
+        <ul class="uk-navbar-nav uk-text-large">
          <% if user_signed_in? %>
          <li class="uk-active "><%= link_to 'HOME', root_path%></li>
          <li class="uk-active "><%= link_to 'FORUMS', forums_path%></li>
@@ -73,7 +73,7 @@
             </a>
             <div class="uk-navbar-dropdown">
              <ul class="uk-nav uk-navbar-dropdown-nav uk-text-large">
-               <li class="uk-nav-header">Account Name</li>
+               <li class="uk-nav-header uk-text-italic uk-text-lead">Account Name</li>
                <li><%= current_user.account_name %></li>
                <li class="uk-active"></li>
                <li><%= link_to "View My Profile", user_path(current_user.id) %></li>
