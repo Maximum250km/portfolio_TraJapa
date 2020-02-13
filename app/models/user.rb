@@ -3,12 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :posts
-  has_many :forums
-  has_many :favorites
-  has_many :post_comments
-  has_many :forum_replies
-  has_many :forum_favorites
+  has_many :posts, dependent: :destroy
+  has_many :forums, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
+  has_many :forum_replies, dependent: :destroy
+  has_many :forum_favorites, dependent: :destroy
   attachment :profile_image, destroy: false
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id

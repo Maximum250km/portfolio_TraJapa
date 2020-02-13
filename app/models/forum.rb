@@ -1,7 +1,7 @@
 class Forum < ApplicationRecord
 	belongs_to :user
-	has_many :forum_replies
-	has_many :forum_favorites
+	has_many :forum_replies,dependent: :destroy
+	has_many :forum_favorites,dependent: :destroy
 	enum forum_genre: {
 		Travel: 0,Tips: 1,Spot: 2,Trouble: 3
 	}
