@@ -10,12 +10,11 @@
 			<% @posts.each do |post| %>
 			<div class="uk-card uk-card-default uk-card-hover uk-margin-large uk-padding">
 				<div class="uk-card-header ">
-					<div class="uk-width-auto uk-text-lead">
+					<div class="uk-width-auto uk-text-large">
 						<%= attachment_image_tag post.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg",class: "icon" %>
-						<%= link_to post.title,post, class: "post_#{post.id}" %>;
-						<span>	posted at <%= post.created_at.strftime('%Y/%m/%d') %></span>
+						<span class="uk-padding-small"><%= link_to post.title,post, class: "post_#{post.id}" %></span>
 					</div>
-					<div class="uk-card-badge uk-label">
+					<div class="uk-card-badge uk-label uk-text-large">
 						<%= post.post_genre %>
 					</div>
 					<%= link_to (post) do %>
@@ -24,12 +23,15 @@
 						<%= post.body %>
 					</div>
 					<% end %>
+						<div id="like_<%= post.id %>">
+							<p class="uk-margin-remove-bottom uk-text-right">
+							  <%= render 'posts/favorite', post: post %>
+							</p>
+					  </div>
+						<p class="uk-margin-remove-bottom uk-text-right uk-margin-small-top">posted at <%= post.created_at.strftime('%Y/%m/%d') %></p>
 				</div>
-				<p id="like_<%= post.id %>">
-					<%= render 'posts/favorite', post: post %>
-				</p>
 				<% post.post_comments.count %>
-				<p class="uk-text-bold">
+				<p class="uk-text-bold uk-padding-small">
 					<%= post.post_comments.count %> comments
 				</p>
 			</div>

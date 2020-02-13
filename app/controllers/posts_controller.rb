@@ -33,7 +33,7 @@ class PostsController < ApplicationController
     else
      @posts= Post.all
      @user = current_user
-     render 'index'
+     render :new
    end
  end
 

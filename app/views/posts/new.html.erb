@@ -3,37 +3,36 @@
 		<div class="uk-width-1-1 uk-width-1-3@m">
 			<%= render 'users/profile', user: @user %>
 		</div>
-		<%= form_for(@post_new) do |f| %>
-		<% if @post_new.errors.any? %>
-		<h3><%= @post_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
-		<ul>
-			<% @post_new.errors.full_messages.each do |message| %>
-			<li><%= message %></li>
-			<% end %>
-		</ul>
-		<% end %>
-
-		<div class="uk-width-1-1 uk-width-2-3@m uk-width-auto uk-margin-medium uk-align-center">
+		<div class="uk-width-1-1 uk-width-2-3@m uk-margin-medium uk-align-center">
+			<%= form_for(@post_new) do |f| %>
+			<% if @post_new.errors.any? %>
+			<h3><%= @post_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
+				<ul>
+				<% @post_new.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+				<% end %>
+				</ul>
 		 	<fieldset class="uk-fieldset ">
-				<legend class="uk-legend uk-text-center uk-text-primary">Puslish Your Trip and Share It</legend>
+				<h3 class="uk-legend uk-text-center uk-text-primary">Puslish Your Trip and Share It</h3>
 				<div class="field">
-					<%= f.label :title, class: "uk-label" %>
+					<%= f.label :title, class: "uk-label uk-text-large" %>
 					<%= f.text_field :title, class: "uk-input" %>
 				</div>
 				<div class="field">
-					<%= f.label :opinion, class: "uk-label" %>
+					<%= f.label :opinion, class: "uk-label uk-text-large" %>
 					<%= f.text_area :body, class: "uk-textarea" %>
 				</div>
 				<div class="field">
-					<%= f.label :topic, class: "uk-label" %>
+					<%= f.label :topic, class: "uk-label uk-text-large" %>
 					<%= f.select :post_genre, [["Travel"],["Tips"],["Spot"]] %>
 				</div>
 				<div class="field">
-					<%= f.label :image, class: "uk-label" %>
+					<%= f.label :image, class: "uk-label uk-text-large" %>
 					<%= f.attachment_field :post_image, class: "uk-button uk-button-default" %>
 				</div>
 				<div class="field form-group">
-					<%= f.label :spot, class: "uk-label" %>
+					<%= f.label :spot, class: "uk-label uk-text-large" %>
 					<div uk-tooltip="Address should be input by autocomplete !! ">
 						<%= f.text_field :spot, class:"form-control", id:"search_input", placeholder:"where to visit" %>
 					</div>

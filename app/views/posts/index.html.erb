@@ -5,12 +5,12 @@
 				<%= render 'users/profile', user: @user %>
 			</div>
 		</div>
-		<div class="uk-width-1-1 uk-width-2-3@m uk-align-center">
+		<div class="uk-width-1-1 uk-width-2-3@m uk-align-center ">
 			<h4 class="uk-text-center"> Top 5 Post </h4>
-			<table class="uk-table uk-table-hover uk-table-middle uk-table-divider" >
-				<thead>
+			<table class="uk-table uk-table-hover uk-table-middle uk-table-divider table-background" >
+				<thead class="uk-text-bold">
 					<tr>
-						<th>popular</th>
+						<th>Popular</th>
 						<th>Name</th>
 						<th>Title</th>
 						<th>Genre</th>
@@ -25,13 +25,13 @@
 							<%= p.user.account_name %></td>
 							<% end %>
 							<td>Title: <%= link_to p.title, p, class: "p_#{p.id}" %></td>
-							<td class="uk-badge uk-margin-small-top"><%= p.post_genre %></td>
+							<td class="uk-badge uk-margin-small-top uk-text-large"><%= p.post_genre %></td>
 						</tr>
 						<% end %>
 					</tbody>
 				</table>
-				<h4 class="uk-text-center "> latest Post </h4>
-				<table class="uk-table uk-table-hover uk-table-middle uk-table-divider" >
+				<h4 class="uk-text-center "> Latest Post </h4>
+				<table class="uk-table uk-table-hover uk-table-middle uk-table-divider table-background" >
 					<thead>
 						<tr>
 							<th>Latest Post</th>
@@ -49,7 +49,7 @@
 								<%= n.user.account_name %>
 								<% end %></td>
 								<td> <%= link_to n.title, n, class: "post_#{n.id}" %></td>
-								<td class="uk-badge uk-margin-small-top"> <%= n.post_genre %></td>
+								<td class="uk-badge uk-margin-small-top uk-text-large"> <%= n.post_genre %></td>
 							</tr>
 							<% end %>
 						</tbody>
