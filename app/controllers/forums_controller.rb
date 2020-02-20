@@ -5,7 +5,7 @@ class ForumsController < ApplicationController
 
   def index
     @forum_new = Forum.new
-    @forums = Forum.all
+    @forums = Forum.all.order(id: "DESC")
     @forum_replies = ForumReply.all
     @user = current_user
     @forum_pages = Forum.page(params[:page]).reverse_order
