@@ -1,5 +1,6 @@
-class RelationshipsController < ApplicationController
+# frozen_string_literal: true
 
+class RelationshipsController < ApplicationController
   def create
     follow = current_user.active_relationships.build(follower_id: params[:user_id])
     follow.save
@@ -12,4 +13,3 @@ class RelationshipsController < ApplicationController
     redirect_back(fallback_location: users_path)
   end
 end
-
