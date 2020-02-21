@@ -16,23 +16,23 @@
 		 	<fieldset class="uk-fieldset ">
 				<h3 class="uk-legend uk-text-center uk-text-primary">Puslish Your Trip and Share It</h3>
 				<div class="field">
-					<%= f.label :title, class: "uk-label uk-text-large" %>
+					<%= f.label :Title, class: "uk-label uk-text-large" %>
 					<%= f.text_field :title, class: "uk-input" %>
 				</div>
 				<div class="field">
-					<%= f.label :opinion, class: "uk-label uk-text-large" %>
+					<%= f.label :Opinion, class: "uk-label uk-text-large" %>
 					<%= f.text_area :body, class: "uk-textarea" %>
 				</div>
 				<div class="field">
-					<%= f.label :topic, class: "uk-label uk-text-large" %>
+					<%= f.label :Topic, class: "uk-label uk-text-large" %>
 					<%= f.select :post_genre, [["Travel"],["Tips"],["Spot"]] %>
 				</div>
 				<div class="field">
-					<%= f.label :image, class: "uk-label uk-text-large" %>
+					<%= f.label :Image, class: "uk-label uk-text-large" %>
 					<%= f.attachment_field :post_image, class: "uk-button uk-button-default" %>
 				</div>
 				<div class="field form-group">
-					<%= f.label :spot, class: "uk-label uk-text-large" %>
+					<%= f.label :Spot, class: "uk-label uk-text-large" %>
 					<div uk-tooltip="Address should be input by autocomplete !! ">
 						<%= f.text_field :spot, class:"form-control", id:"search_input", placeholder:"where to visit" %>
 					</div>
