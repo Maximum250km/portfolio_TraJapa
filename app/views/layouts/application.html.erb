@@ -66,7 +66,8 @@
           <% if user_signed_in? %>
           <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'HOME', root_path%></li>
           <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'FORUMS', forums_path%></li>
-          <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'POSTS', posts_path %></li>
+          <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'POSTS RANKING', posts_path %></li>
+          <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'NEW POSTS', posts_path %></li>
           <li>
             <a href="#">
               <%= attachment_image_tag(current_user, :profile_image, :fill, 75, 75, fallback: "human.png" ,class: "icon") %>

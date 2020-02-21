@@ -9,11 +9,6 @@ class UsersController < ApplicationController
     # @post = Post.find(params[:id])
   end
 
-  def index
-    @users = User.all
-    @user = current_user
-  end
-
   def edit
     @user = User.find(params[:id])
     redirect_to user_path(current_user) if current_user != @user
