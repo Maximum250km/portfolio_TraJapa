@@ -4,66 +4,8 @@
 			<%= render 'users/profile', user: @user %>
 		</div>
 		<div class="uk-width-1-1 uk-width-2-3@m uk-margin-medium uk-align-center">
-			<%= form_for(@post_new) do |f| %>
-			<% if @post_new.errors.any? %>
-			<h3><%= @post_new.errors.count %>error occurrence</h3><!--エラーメッセ-->
-				<ul>
-				<% @post_new.errors.full_messages.each do |message| %>
-					<li><%= message %></li>
-				<% end %>
-				<% end %>
-				</ul>
-		 	<fieldset class="uk-fieldset ">
-				<h3 class="uk-legend uk-text-center uk-text-primary">Puslish Your Trip and Share It</h3>
-				<div class="field">
-					<%= f.label :Title, class: "uk-label uk-text-large" %>
-					<%= f.text_field :title, class: "uk-input" %>
-				</div>
-				<div class="field">
-					<%= f.label :Opinion, class: "uk-label uk-text-large" %>
-					<%= f.text_area :body, class: "uk-textarea" %>
-				</div>
-				<div class="field">
-					<%= f.label :Topic, class: "uk-label uk-text-large" %>
-					<%= f.select :post_genre, [["Travel"],["Tips"],["Spot"]] %>
-				</div>
-				<div class="field">
-					<%= f.label :Image, class: "uk-label uk-text-large" %>
-					<%= f.attachment_field :post_image, class: "uk-button uk-button-default" %>
-				</div>
-				<div class="field form-group">
-					<%= f.label :Spot, class: "uk-label uk-text-large" %>
-					<div uk-tooltip="Address should be input by autocomplete !! ">
-						<%= f.text_field :spot, class:"form-control", id:"search_input", placeholder:"where to visit" %>
-					</div>
-					<input type="hidden" id="latitude_input"/>
-					<input type="hidden" id="longitude_input"/>
-				</div>
-				<div class="submit">
-					<%= f.submit class: "btn btn-primary" %>
-				</div>
-			</fieldset>
-			<% end %>
+				<%= render 'posts/post_new_edit', post: @post_new %>
 		</div>
 	</div>
 </div>
 
-
-				<script>
-					var searchInput = 'search_input';
-					$(document).ready(function () {
-						var autocomplete;
-						autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-							types: ['geocode'],
-							componentRestrictions: {country: "jp"}
-						});
-						google.maps.event.addListener(autocomplete, 'place_changed', function () {
-							var near_place = autocomplete.getPlace();
-							document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-							document.getElementById('loc_long').value = near_place.geometry.location.lng();
-							document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
-							document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
-						});
-					});
-				</script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgcXDu9pZmm_jOHHvAgpwnyVhIw9uiqfw&libraries=places"></script>
