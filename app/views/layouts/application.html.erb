@@ -15,8 +15,8 @@
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.0/dist/js/uikit-icons.min.js"></script>
   <script src=" https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.1/js/countrySelect.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgcXDu9pZmm_jOHHvAgpwnyVhIw9uiqfw&libraries=places"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkxS_JuEboKWjO2QnLTSI9CGy1X-KvJf8&callback=initMap&language=en" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY_2']%>" async defer></script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </head>
@@ -67,7 +67,7 @@
           <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'HOME', root_path%></li>
           <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'FORUMS', forums_path%></li>
           <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'POSTS RANKING', posts_path %></li>
-          <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'NEW POSTS', posts_path %></li>
+          <li class=" uk-margin-medium-right navbar-fonts"><%= link_to 'NEW POSTS', new_post_path %></li>
           <li>
             <a href="#">
               <%= attachment_image_tag(current_user, :profile_image, :fill, 75, 75, fallback: "human.png" ,class: "icon") %>
