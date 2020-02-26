@@ -56,11 +56,8 @@ $(document).ready(function () {
 function initMap() {
   var target = document.getElementById('gmap');
   var address = document.getElementById("spot").textContent;
-  //ジオコーディングのインスタンスの生成
   var geocoder = new google.maps.Geocoder();
-
     geocoder.geocode({ address: address }, function(results, status){
-        //ステータスが OK で results[0] が存在すれば、地図を生成
       if (status === 'OK' && results[0]){
         var map = new google.maps.Map(target, {
         //results[0].geometry.location に緯度・経度のオブジェクトが入っている
