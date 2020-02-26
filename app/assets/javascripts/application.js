@@ -54,13 +54,11 @@ $(document).ready(function () {
 
 // tizu
 function initMap() {
-//地図を表示する領域の div 要素のオブジェクトを変数に代入
   var target = document.getElementById('gmap');
- //HTMLに記載されている住所の取得
   var address = document.getElementById("spot").textContent;
   //ジオコーディングのインスタンスの生成
   var geocoder = new google.maps.Geocoder();
-  //geocoder.geocode() にアドレスを渡して、コールバック関数を記述して処理
+
     geocoder.geocode({ address: address }, function(results, status){
         //ステータスが OK で results[0] が存在すれば、地図を生成
       if (status === 'OK' && results[0]){
